@@ -1,0 +1,59 @@
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.all_transactions {
+    width: 100%;
+}
+
+.data_header {
+    height: 40px;
+    color: black;
+    background-color: lightgrey;
+}
+
+.data_header_date {
+    width: 10%;
+}
+
+.data_header_category {
+    width: 15%;
+}
+
+.data_header_description {
+    
+}
+
+.data_header_amount {
+    width: 10%;
+}
+
+.data_row td {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.data_element_date {
+    text-align: center;
+}
+
+.data_element_category {
+    text-align: center;
+}
+
+.data_element_description {
+    padding-left: 10px;;
+}
+
+.data_element_amount {
+    text-align: center;
+}
+
+.type_income {
+    background-color: lightgreen;
+}
+
+.type_expense {
+    background-color: darkkhaki;
+}

@@ -1,0 +1,5 @@
+Amex/
+Chase/
+Discover/
+**/node_modules/**
+**/.env
