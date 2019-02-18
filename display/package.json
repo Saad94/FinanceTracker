@@ -23,6 +23,7 @@
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
+    "@vaadin/vaadin-date-picker": "^3.3.2",
     "babel-polyfill": "^6.26.0"
   }
 }

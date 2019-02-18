@@ -202,12 +202,12 @@ def extract_desc_and_category(description, amount):
         If amount is positive, returns [description, 'INCOME']
         Else returns [description, 'MISC']
     '''
+    if amount > 0:
+        return [description, 'INCOME']
+
     for label, values in ALIASES.items():
         if label in description:
             return values
-    
-    if amount > 0:
-        return [description, 'INCOME']
 
     return [description, 'MISC']
 

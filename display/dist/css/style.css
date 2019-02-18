@@ -1,6 +1,70 @@
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
+body {
+    padding: 3em;
+    background-color: white;
+    text-align: center;
+    margin: 0;
+}
+table {
+    width: 100%;
+    overflow-y: auto;
+    height: 100%;
+}
+table td,
+table th {
+    padding: 1em;
+    box-sizing: border-box;
+    text-align: center;
+    box-shadow: 0 0 1.5px -1px;
+    flex: 1 0;
+}
+table,
+table tbody {
+    display: flex;
+    flex-direction: column;
+}
+table tr {
+    display: flex;
+    flex: 1 0;
+}
+@media screen and (min-aspect-ratio: 1) {
+    table tbody {
+        overflow-y: auto;
+    }
+}
+
+.body {
+    height: 500px;
+    position: absolute;
+    top: 150px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: aqua;
+    display: flex;
+}
+
+.main {
+    width: 100%;
+    height: 100%;
+}
+
+.sidebar {
+    width: 140px;
+    background: #666;
+    color: #fff;
+    height: 100%;
+}
+
+
+
+
+
+.my-btn {
+    background: white;
+    width: 200px;
+}
+
+#date_range {
 }
 
 .all_transactions {
@@ -11,6 +75,7 @@ table, th, td {
     height: 40px;
     color: black;
     background-color: lightgrey;
+    cursor: pointer;
 }
 
 .data_header_date {

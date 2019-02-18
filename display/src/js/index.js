@@ -1,48 +1,59 @@
 import Transaction from './models/Transaction';
 import * as allTransactionsView from './views/allTransactionsView';
-import { elements, classNames } from './views/base';
+import { elements, classNames, toDate } from './views/base';
 import { data } from './data/data'
+import '@vaadin/vaadin-date-picker/vaadin-date-picker.js';
+import { sort } from './sort'
 
-const state = {};
-state.transactions = [];
-console.log(state.transactions);
-state.transactions = JSON.parse(data);
-console.log(state.transactions);
+///////////////////////
+/// SET UP VARIABLES
+///////////////////////
 
-allTransactionsView.renderAllTransactions(state.transactions);
+const startDate = elements.startDate;
+const endDate = elements.endDate;
 
-const sortNum = (a, b) => a - b;
+const state = {
+    allTransactions: [],
+    transactions: [],
+    lastSort: null,
+    startDate: null,
+    endDate: Date.now()
+};
 
-const sortString = (a, b) => {
-    var x = a.toLowerCase();
-    var y = b.toLowerCase();
-    if (x < y) {return -1;}
-    if (x > y) {return 1;}
-    return 0;
-}
+////////////////////////////////////////////////////////////
+/// LOAD THE JSON DATA INTO OUR GLOBAL TRANSACTIONS ARRAY
+////////////////////////////////////////////////////////////
+JSON.parse(data).forEach(obj => state.allTransactions.push(new Transaction(obj.date, obj.category, obj.description, obj.amount)));
+sort(state.allTransactions, 'date', state.lastSort);
+allTransactionsView.calcCurrentTransactions(state);
 
-const sortDate = (a, b) => sortNum(Date.parse(a.date), Date.parse(b.date));
-const sortCategory = (a, b) => sortString(a.category, b.category);
-const sortDescription = (a, b) => sortString(a.description, b.description);
-const sortAmount = (a, b) => sortNum(a.amount, b.amount);
+/////////////////////////////////
+/// SET UP THE EVENT LISTENERS
+/////////////////////////////////
 
-const sort = key => {
-    if (key === 'date') {
-        state.transactions = state.transactions.sort(sortDate);
-    } else if (key === 'category') {
-        state.transactions = state.transactions.sort(sortCategory);
-    } else if (key === 'description') {
-        state.transactions = state.transactions.sort(sortDescription);
-    } else if (key === 'amount') {
-        state.transactions = state.transactions.sort(sortAmount);
-    }
-
-    allTransactionsView.renderAllTransactions(state.transactions);
-}
-
-// Setting the sort function on the header row.
-elements.allTransactions.addEventListener('click', e => {
+// Setting the sort function click handler on the header row.
+elements.allTransactionsHeader.addEventListener('click', e => {
+    console.log(e.target);
     if (e.target.matches('.data_header_date, .data_header_category, .data_header_description, .data_header_amount')) {
-        sort(e.target.dataset.key);
+        allTransactionsView.sortAndRender(state, e.target.dataset.key);
     }
 });
+
+startDate.addEventListener('change', e => {
+    endDate.min = startDate.value;
+    state.startDate = toDate(startDate.value);
+    allTransactionsView.calcCurrentTransactions(state);
+
+    // Open the second date picker when the user has selected a value
+    if (startDate.value) {
+        endDate.open();
+    }
+});
+
+endDate.addEventListener('change', e => {
+    startDate.max = endDate.value;
+    state.endDate = toDate(endDate.value);
+    allTransactionsView.calcCurrentTransactions(state);
+});
+
+window.state = state;

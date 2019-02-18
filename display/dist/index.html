@@ -3,34 +3,56 @@
 	 <head>
 		<meta charset="UTF-8">
 		<title>The Minimal Webpack Babel Setup</title>
-		<link rel="stylesheet" href="css/style.css">
+		<!-- <link rel="stylesheet" href="css/style.css"> -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+		<style class="cp-pen-styles">
+			body {
+				padding: 3em;
+				background-color: white;
+			}
+			table {
+				width: 100%;
+				overflow-x: auto;
+				height: 100vh;
+			}
+			table thead {
+				min-height: 3em;
+			}
+			table th,
+			table td {
+				padding: 1em;
+				box-sizing: border-box;
+				text-align: center;
+				box-shadow: 0 0 1.5px -1px;
+				flex: 1 0 10em;
+			}
+			table,
+			table thead,
+			table tbody,
+			table tfoot {
+				display: flex;
+				flex-direction: column;
+			}
+			table tr {
+				display: flex;
+				flex: 1 0;
+			}
+			@media screen and (min-aspect-ratio: 1) {
+				table tbody {
+					overflow-y: auto;
+				}
+			}
+		</style>
 	</head>
 	<body>
 		<div id="date_range">
 			<vaadin-date-picker label="Start Date" placeholder="Pick a date" id="start_date"></vaadin-date-picker>
 			<vaadin-date-picker label="End Date" placeholder="Pick a date" id="end_date"></vaadin-date-picker>
 		</div>
-		<div class="body">
-			<div class="sidebar">
-				Content in column A
-			</div>
-			<div class="main">
-				<!-- <div class="header">Page Header. Content columns are below.</div> -->
-				<table>
-					<thead class="all_transactions_header">
-						<tr class="data_header">
-							<th class="data_header_date" data-key="date">Date</th>
-							<th class="data_header_category" data-key="category">Category</th>
-							<th class="data_header_description" data-key="description">Description</th>
-							<th class="data_header_amount" data-key="amount">Amount</th>
-						</tr>
-					</thead>
-					<tbody class="all_transactions"></tbody>
-				</table>
-			</div>
-		</div>
-	</body>
+		<table>
+			<tbody class="all_transactions"></tbody>
+		</table>
+	<script type="text/javascript" src="js/bundle.js"></script></body>
 </html>
 
 <!-- <!DOCTYPE html>
