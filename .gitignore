@@ -3,3 +3,5 @@ Chase/
 Discover/
 **/node_modules/**
 **/.env
+*.log
+display/src/js/data/*
