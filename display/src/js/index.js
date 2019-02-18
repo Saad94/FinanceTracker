@@ -33,10 +33,7 @@ allTransactionsView.calcCurrentTransactions(state);
 
 // Setting the sort function click handler on the header row.
 elements.allTransactionsHeader.addEventListener('click', e => {
-    console.log(e.target);
-    if (e.target.matches('.data_header_date, .data_header_category, .data_header_description, .data_header_amount')) {
-        allTransactionsView.sortAndRender(state, e.target.dataset.key);
-    }
+    allTransactionsView.sortAndRender(state, e.target.closest('.column').dataset.key);
 });
 
 startDate.addEventListener('change', e => {

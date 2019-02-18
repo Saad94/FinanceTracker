@@ -1,40 +1,24 @@
 import { elements, classNames } from './base'
 import { sort } from '../sort'
 
-export const renderHeader = () => {
-    // const markup = `
-    //     <thead>
-    //         <tr class="${classNames.dataHeader}">
-    //             <th class="${classNames.dataHeaderDate}" data-key="date">Date</th>
-    //             <th class="${classNames.dataHeaderCategory}" data-key="category">Category</th>
-    //             <th class="${classNames.dataHeaderDescription}" data-key="description">Description</th>
-    //             <th class="${classNames.dataHeaderAmount}" data-key="amount">Amount</th>
-    //         </tr>
-    //     </thead>
-    // `;
-    elements.allTransactions.innerHTML = '';
-}
-
 export const renderTransaction = transaction => {
     const markup = `
-        <tr class="${classNames.dataRow} ${transaction.category === 'INCOME' ? classNames.typeIncome : classNames.typeExpense}">
-            <td class="${classNames.dataRowDate}">${transaction.date}</td>
-            <td class="${classNames.dataRowCategory}">${transaction.category}</td>
-            <td class="${classNames.dataRowDescription}">${transaction.description}</td>
-            <td class="${classNames.dataRowAmount}">${transaction.amount.toFixed(2)}</td>
-        </tr>
+        <div class="table-row ${transaction.category === 'INCOME' ? classNames.typeIncome : classNames.typeExpense}">
+            <div class="column ${classNames.dataRowDate}">${transaction.date}</div>
+            <div class="column ${classNames.dataRowCategory}">${transaction.category}</div>
+            <div class="column ${classNames.dataRowDescription}">${transaction.description}</div>
+            <div class="column ${classNames.dataRowAmount}">${transaction.amount.toFixed(2)}</div>
+        </div>
     `;
     elements.allTransactions.insertAdjacentHTML('beforeend', markup);
 }
 
 export const renderAllTransactions = transactionsList => {
-    renderHeader();
+    elements.allTransactions.innerHTML = '';
     transactionsList.forEach(renderTransaction);
 }
 
 export const sortAndRender = (state, key) => {
-    console.log(state);
-    console.log(key);
     state.lastSort = sort(state.transactions, key, state.lastSort);
     renderAllTransactions(state.transactions);
 }

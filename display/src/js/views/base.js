@@ -1,6 +1,5 @@
 export const classNames = {
     allTransactions: 'all_transactions',
-    allTransactionsHeader: 'all_transactions_header',
     dataHeader: 'data_header',
     dataHeaderDate: 'data_header_date',
     dataHeaderCategory: 'data_header_category',
@@ -20,7 +19,7 @@ export const classNames = {
 
 export const elements = {
     allTransactions: document.querySelector(`.${classNames.allTransactions}`),
-    allTransactionsHeader: document.querySelector(`.${classNames.allTransactionsHeader}`),
+    allTransactionsHeader: document.querySelector(`.${classNames.dataHeader}`),
     root: document.querySelector(`.${classNames.root}`),
     startDate: document.querySelector(`#${classNames.startDate}`),
     endDate: document.querySelector(`#${classNames.endDate}`)

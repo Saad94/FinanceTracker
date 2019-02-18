@@ -4,7 +4,6 @@
 		<meta charset="UTF-8">
 		<title>The Minimal Webpack Babel Setup</title>
 		<link rel="stylesheet" href="css/style.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 	</head>
 	<body>
 		<div id="date_range">
@@ -15,51 +14,16 @@
 			<div class="sidebar">
 				Content in column A
 			</div>
-			<div class="main">
-				<!-- <div class="header">Page Header. Content columns are below.</div> -->
-				<table>
-					<thead class="all_transactions_header">
-						<tr class="data_header">
-							<th class="data_header_date" data-key="date">Date</th>
-							<th class="data_header_category" data-key="category">Category</th>
-							<th class="data_header_description" data-key="description">Description</th>
-							<th class="data_header_amount" data-key="amount">Amount</th>
-						</tr>
-					</thead>
-					<tbody class="all_transactions"></tbody>
-				</table>
+			<div class="container">
+				<div class="table-row data_header">
+					<div class="column data_header_date" data-key="date"><div>Date</div></div>
+					<div class="column data_header_category" data-key="category"><div>Category</div></div>
+					<div class="column data_header_description" data-key="description"><div>Description</div></div>
+					<div class="column data_header_amount" data-key="amount"><div>Amount</div></div>
+				</div>
+				
+				<div class="all_transactions"></div>
 			</div>
 		</div>
 	</body>
 </html>
-
-<!-- <!DOCTYPE html>
-<html>
-	<head>
-	</head>
-	<body>
-		<div class="root">
-			
-			<div class="body" style="display: flex;">
-				<div class="sidebar">
-					Content in column A
-				</div>
-				<div class="main">
-					<div class="header">Page Header. Content columns are below.</div>
-
-					<div class="content">
-						<div class="box">
-							<table>
-								<thead></thead>
-								<tbody class="all_transactions"></tbody>
-							</table>
-						</div>
-					</div>
-					
-				</div>
-			</div>
-		</div>
-	</body>
-</html>
- -->
-
