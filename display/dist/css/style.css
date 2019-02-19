@@ -22,10 +22,10 @@ body {
     flex-direction: row;
     flex-wrap: no-wrap;
     width: 100%;
-    border-bottom: 1px solid #c6c6c6;
+    border-bottom: 1px solid #111111;
     border-collapse: collapse;
-    height: 40px;
-    line-height: 40px;
+    height: 30px;
+    line-height: 30px;
 }
 .table-row.data_header {
     font-weight: bold;
@@ -33,12 +33,13 @@ body {
     cursor: pointer;
     height: 50px;
     line-height: 50px;
+    border-bottom: 2px solid #111111;
 }
 .column {
     flex-grow: 0;
     flex-shrink: 0;
     vertical-align: middle;
-    border-right: 1px solid #e0e0e0;
+    border-right: 1px solid #111111;
 }
 .data_header_date, .data_element_date {
     width: 150px;
@@ -47,7 +48,6 @@ body {
 .data_header_category, .data_element_category {
     width: 220px;
     font-weight: bold;
-    color: #337AB5;
     text-align: center;
 }
 .data_header_amount, .data_element_amount {
@@ -71,8 +71,35 @@ body {
 .type_income {
     background-color: #bdff8c;
 }
-.type_expense {
-    background-color: #f6f3d3;
+.type_misc {
+    background-color: #e9d3f6;
+}
+.type_airline {
+    background-color: #f5f7ad;
+}
+.type_climbing {
+    background-color: #caabab;
+}
+.type_dancing {
+    background-color: #d8a1f8;
+}
+.type_essential {
+    background-color: #80aed3;
+}
+.type_transportation {
+    background-color: #ffc685;
+}
+.type_entertainment {
+    background-color: #c7fdff;
+}
+.type_groceries {
+    background-color: #fdb5b5;
+}
+.type_hotels {
+    background-color: #ffc2f7;
+}
+.type_investments {
+    background-color: #ff6767;
 }
 
 .sidebar {

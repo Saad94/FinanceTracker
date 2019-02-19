@@ -1,9 +1,26 @@
 import { elements, classNames, calcStartDate, calcEndDate } from './base'
 import { sort } from '../sort'
 
+const categoryToClassName = category => {
+    switch (category) {
+        case 'INCOME': return classNames.typeIncome;
+        case 'AIRLINES': return classNames.typeAirline;
+        case 'CLIMBING': return classNames.typeClimbing;
+        case 'DANCING': return classNames.typeDancing;
+        case 'ESSENTIALS': return classNames.typeEssential;
+        case 'TRANSPORTATION': return classNames.typeTransportation;
+        case 'GROCERIES': return classNames.typeGroceries;
+        case 'AMAZON': return classNames.typeGroceries;
+        case 'ENTERTAINMENT': return classNames.typeEntertainment;
+        case 'HOTELS': return classNames.typeHotels;
+        case 'INVESTMENTS': return classNames.typeInvestments;
+        default: return classNames.typeMisc;
+    }
+}
+
 export const renderTransaction = transaction => {
     const markup = `
-        <div class="table-row ${transaction.category === 'INCOME' ? classNames.typeIncome : classNames.typeExpense}">
+        <div class="table-row ${categoryToClassName(transaction.category)}">
             <div class="column ${classNames.dataRowDate}">${transaction.date}</div>
             <div class="column ${classNames.dataRowCategory}">${transaction.category}</div>
             <div class="column ${classNames.dataRowDescription}">${transaction.description}</div>
