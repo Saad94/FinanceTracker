@@ -47,6 +47,8 @@ export const updateYear = (state, inc) => {
 }
 
 export const updateMonth = (state, index) => {
+    elements.startDate.value = "";
+    elements.endDate.value = "";
     index = parseInt(index);
     elements.allMonths[state.selectedMonth].classList.remove(classNames.monthActive);
     elements.allMonths[index].classList.add(classNames.monthActive);

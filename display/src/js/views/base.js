@@ -21,7 +21,8 @@ export const classNames = {
     month: 'month',
     monthActive: 'month_active',
     year: 'year',
-    yearValue: 'year_value'
+    yearValue: 'year_value',
+    search: 'search'
 }
 
 export const elements = {
@@ -35,7 +36,8 @@ export const elements = {
     sidebar: document.querySelector(`.${classNames.sidebar}`),
     year: document.querySelector(`.${classNames.year}`),
     yearValue: document.querySelector(`.${classNames.yearValue}`),
-    allMonths: Array.from(document.querySelectorAll('.month'))
+    allMonths: Array.from(document.querySelectorAll(`.${classNames.month}`)),
+    search: document.querySelector(`.${classNames.search}`)
 };
 
 export const toDate = dateStr => {

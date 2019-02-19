@@ -1,6 +1,6 @@
 import Transaction from './models/Transaction';
 import * as allTransactionsView from './views/allTransactionsView';
-import { elements, classNames, numDaysInMonth, calcStartDate, calcEndDate } from './views/base';
+import { elements, classNames, toDate, calcStartDate, calcEndDate } from './views/base';
 import { data } from './data/data'
 import '@vaadin/vaadin-date-picker/vaadin-date-picker.js';
 import { sort } from './sort'
@@ -8,11 +8,6 @@ import { sort } from './sort'
 ///////////////////////
 /// SET UP VARIABLES
 ///////////////////////
-
-const startDate = elements.startDate;
-const endDate = elements.endDate;
-
-console.log(elements.year.textContent);
 
 const state = {
     allTransactions: [],
@@ -22,15 +17,14 @@ const state = {
     endDate: Date.now(),
     displayedYear: new Date().getFullYear(),
     selectedYear: new Date().getFullYear(),
-    selectedMonth: new Date().getMonth()
+    selectedMonth: 0
+    // selectedMonth: new Date().getMonth()
 };
 
 elements.yearValue.textContent = state.displayedYear;
 elements.allMonths[state.selectedMonth].classList.add(classNames.monthActive);
 state.startDate = calcStartDate(state.selectedYear, state.selectedMonth);
 state.endDate = calcEndDate(state.selectedYear, state.selectedMonth);
-console.log(state.startDate);
-console.log(state.endDate);
 
 ////////////////////////////////////////////////////////////
 /// LOAD THE JSON DATA INTO OUR GLOBAL TRANSACTIONS ARRAY
@@ -59,21 +53,23 @@ elements.sidebar.addEventListener('click', e => {
     }
 });
 
-// startDate.addEventListener('change', e => {
-//     endDate.min = startDate.value;
-//     state.startDate = toDate(startDate.value);
-//     allTransactionsView.calcCurrentTransactions(state);
+elements.startDate.addEventListener('change', e => {
+    elements.endDate.min = elements.startDate.value;
+    state.startDate = toDate(elements.startDate.value);
 
-//     // Open the second date picker when the user has selected a value
-//     if (startDate.value) {
-//         endDate.open();
-//     }
-// });
+    if (elements.startDate.value) {
+        elements.endDate.open();
+    }
+});
 
-// endDate.addEventListener('change', e => {
-//     startDate.max = endDate.value;
-//     state.endDate = toDate(endDate.value);
-//     allTransactionsView.calcCurrentTransactions(state);
-// });
+elements.endDate.addEventListener('change', e => {
+    elements.startDate.max = elements.endDate.value;
+    state.endDate = toDate(elements.endDate.value);
+});
+
+elements.search.addEventListener('click', e => {
+    elements.allMonths[state.selectedMonth].classList.remove(classNames.monthActive);
+    allTransactionsView.calcCurrentTransactions(state);
+});
 
 window.state = state;
