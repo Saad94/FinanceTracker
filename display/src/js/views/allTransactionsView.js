@@ -1,4 +1,4 @@
-import { elements, classNames } from './base'
+import { elements, classNames, calcStartDate, calcEndDate } from './base'
 import { sort } from '../sort'
 
 export const renderTransaction = transaction => {
@@ -34,4 +34,25 @@ export const calcCurrentTransactions = state => {
     state.lastSort = null;
     sortAndRender(state, key);
 }
-    
+
+export const updateYear = (state, inc) => {
+    state.displayedYear = state.displayedYear + inc;
+    elements.yearValue.textContent = state.displayedYear;
+
+    if (state.displayedYear !== state.selectedYear) {
+        elements.allMonths[state.selectedMonth].classList.remove(classNames.monthActive);
+    } else {
+        elements.allMonths[state.selectedMonth].classList.add(classNames.monthActive);
+    }
+}
+
+export const updateMonth = (state, index) => {
+    index = parseInt(index);
+    elements.allMonths[state.selectedMonth].classList.remove(classNames.monthActive);
+    elements.allMonths[index].classList.add(classNames.monthActive);
+    state.selectedMonth = index;
+    state.selectedYear = state.displayedYear;
+    state.startDate = calcStartDate(state.selectedYear, state.selectedMonth);
+    state.endDate = calcEndDate(state.selectedYear, state.selectedMonth);
+    calcCurrentTransactions(state);
+}

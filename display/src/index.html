@@ -6,20 +6,32 @@
 		<link rel="stylesheet" href="css/style.css">
 	</head>
 	<body>
-		<div id="date_range">
+		<!-- <div id="date_range">
 			<vaadin-date-picker label="Start Date" placeholder="Pick a date" id="start_date"></vaadin-date-picker>
 			<vaadin-date-picker label="End Date" placeholder="Pick a date" id="end_date"></vaadin-date-picker>
-		</div>
+		</div> -->
 		<div class="body">
 			<div class="sidebar">
-				Content in column A
+				<div class="year"><i class="left_arrow"></i><span class="year_value noselect"></span><i class="right_arrow"></i></div>
+				<div class="month" data-index=0>January</div>
+				<div class="month" data-index=1>February</div>
+				<div class="month" data-index=2>March</div>
+				<div class="month" data-index=3>April</div>
+				<div class="month" data-index=4>May</div>
+				<div class="month" data-index=5>June</div>
+				<div class="month" data-index=6>July</div>
+				<div class="month" data-index=7>August</div>
+				<div class="month" data-index=8>September</div>
+				<div class="month" data-index=9>October</div>
+				<div class="month" data-index=10>November</div>
+				<div class="month" data-index=11>December</div>
 			</div>
 			<div class="container">
 				<div class="table-row data_header">
-					<div class="column data_header_date" data-key="date"><div>Date</div></div>
-					<div class="column data_header_category" data-key="category"><div>Category</div></div>
-					<div class="column data_header_description" data-key="description"><div>Description</div></div>
-					<div class="column data_header_amount" data-key="amount"><div>Amount</div></div>
+					<div class="column data_header_date noselect" data-key="date"><div>Date</div></div>
+					<div class="column data_header_category noselect" data-key="category"><div>Category</div></div>
+					<div class="column data_header_description noselect" data-key="description"><div>Description</div></div>
+					<div class="column data_header_amount noselect" data-key="amount"><div>Amount</div></div>
 				</div>
 				
 				<div class="all_transactions"></div>

@@ -1,78 +1,6 @@
-/*
-
-
-
-.main {
-    width: 100%;
-    height: 100%;
-}
-
-
-
-
-
-
-
-.my-btn {
-    background: white;
-    width: 200px;
-}
-
-#date_range {
-}
-
-.all_transactions {
-    width: 100%;
-}
-
-.data_header {
-    height: 40px;
-    color: black;
-    background-color: lightgrey;
-    cursor: pointer;
-}
-
-.data_header_date {
-    width: 10%;
-}
-
-.data_header_category {
-    width: 15%;
-}
-
-.data_header_description {
-    
-}
-
-.data_header_amount {
-    width: 10%;
-}
-
-.data_row td {
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-
-.data_element_date {
-    text-align: center;
-}
-
-.data_element_category {
-    text-align: center;
-}
-
-.data_element_description {
-    padding-left: 10px;;
-}
-
-.data_element_amount {
-    text-align: center;
-}
- */
-
 .body {
     position: absolute;
-    height: 500px;
+    height: 540px;
     top: 70px;
     right: 0;
     bottom: 0;
@@ -80,19 +8,10 @@
     padding: 20px;
 }
 
-.sidebar {
-    width: 140px;
-    background: #666;
-    color: #fff;
-    height: 100%;
-    float: left;
-}
-
 .container {
     overflow-y: auto;
     height: 100%;
 }
-
 .table-row {
     display: flex;
     flex-direction: row;
@@ -100,9 +19,8 @@
     width: 100%;
     border-bottom: 1px solid #e0e0e0;
     border-collapse: collapse;
-    padding-top: 2px;
-    height: 50px;
-    line-height: 50px;
+    height: 40px;
+    line-height: 40px;
 }
 .table-row.data_header {
     font-weight: bold;
@@ -145,11 +63,71 @@
     text-overflow: ellipsis;
     text-align: left;
 }
-
 .type_income {
     background-color: #bdff8c;
 }
-
 .type_expense {
     background-color: #f6f3d3;
+}
+
+.sidebar {
+    width: 140px;
+    background: #6077a1;
+    color: #fff;
+    height: 100%;
+    float: left;
+}
+
+.month {
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
+}
+.month_active, .month:hover {
+    background-color: #e7b31f;
+}
+.year {
+    background-color: lightsalmon;
+    color: black;
+    height: 50px;
+    line-height: 50px;
+    font-weight: bold;
+    position: relative;
+}
+.month, .year {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+i {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+}
+  
+.right_arrow {
+    transform: rotate(-45deg);
+    position: absolute;
+    top: 21px;
+    right: 30px;
+    cursor: pointer;
+}
+  
+.left_arrow {
+    transform: rotate(135deg);
+    position: absolute;
+    top: 21px;
+    left: 30px;
+    cursor: pointer;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome and Opera */
 }
