@@ -4,4 +4,4 @@ Discover/
 **/node_modules/**
 **/.env
 *.log
-display/src/js/data/*
+display/src/server/data/data-*
