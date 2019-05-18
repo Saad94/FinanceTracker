@@ -24,11 +24,12 @@ TRANSACTIONS = []
 CATEGORIES = {
   'AIRLINES': 'AIRLINES',
   'AMAZON': 'AMAZON',
+  'APPAREL': 'APPAREL',
   'CHARITY': 'CHARITY',
-  'CLIMBING': 'CLIMBING',
   'DANCING': 'DANCING',
   'ENTERTAINMENT': 'ENTERTAINMENT',
   'ESSENTIALS': 'ESSENTIALS',
+  'FITNESS': 'FITNESS',
   'GAMING': 'GAMING',
   'GIFTS': 'GIFTS',
   'GROCERIES': 'GROCERIES',
@@ -39,6 +40,7 @@ CATEGORIES = {
   'LOANS': 'LOANS',
   'MAIL': 'MAIL',
   'MISC': 'MISC',
+  'ONE_TIME_SPENDING': 'ONE_TIME_SPENDING',
   'RESTAURANTS': 'RESTAURANTS',
   'SUBSCRIPTIONS': 'SUBSCRIPTIONS',
   'TRANSPORTATION': 'TRANSPORTATION'
@@ -46,12 +48,6 @@ CATEGORIES = {
 
 # Aliases
 ALIASES = {
-  'Austin Bouldering'           : ['Austin Bouldering Project',     CATEGORIES['CLIMBING'],       ''              ],
-  'AUSTIN BOULDERING'           : ['Austin Bouldering Project',     CATEGORIES['CLIMBING'],       ''              ],
-  'CRUX CLIMBING CENTER'        : ['Crux Climbing Center',          CATEGORIES['CLIMBING'],       ''              ],
-  'REI'                         : ['REI',                           CATEGORIES['CLIMBING'],       ''              ],
-  'BROOKLYN BOULDERS'           : ['Brooklyn Boulders',             CATEGORIES['CLIMBING'],       ''              ],
-  'URBANA BOULDERS'             : ['Urbana Boulders',               CATEGORIES['CLIMBING'],       ''              ],
   'AUSTIN INSPIRED'             : ['Austin Inspired Movement',      CATEGORIES['DANCING'],        ''              ],
   'AUSTIN SWING'                : ['Austin Swing Syndicate',        CATEGORIES['DANCING'],        ''              ],
   'FOUR ON THE'                 : ['Four On The Floor',             CATEGORIES['DANCING'],        ''              ],
@@ -68,6 +64,12 @@ ALIASES = {
   'PRIVATEINTERNETACCESS'       : ['Private Internet Access VPN',   CATEGORIES['ESSENTIALS'],     ''              ],
   'COINTRACKER'                 : ['CoinTracker',                   CATEGORIES['ESSENTIALS'],     'Taxes'         ],
   'SPRINTAX'                    : ['Sprintax',                      CATEGORIES['ESSENTIALS'],     'Taxes'         ],
+  'Austin Bouldering'           : ['Austin Bouldering Project',     CATEGORIES['FITNESS'],        'Climbing'      ],
+  'AUSTIN BOULDERING'           : ['Austin Bouldering Project',     CATEGORIES['FITNESS'],        'Climbing'      ],
+  'CRUX CLIMBING CENTER'        : ['Crux Climbing Center',          CATEGORIES['FITNESS'],        'Climbing'      ],
+  'REI'                         : ['REI',                           CATEGORIES['FITNESS'],        'Climbing'      ],
+  'BROOKLYN BOULDERS'           : ['Brooklyn Boulders',             CATEGORIES['FITNESS'],        'Climbing'      ],
+  'URBANA BOULDERS'             : ['Urbana Boulders',               CATEGORIES['FITNESS'],        'Climbing'      ],
   'STEAM'                       : ['Steam',                         CATEGORIES['GAMING'],         ''              ],
   'CRUNCHYROLL'                 : ['Crunchyroll',                   CATEGORIES['SUBSCRIPTIONS'],  ''              ],
   'MOVIEPASS'                   : ['Moviepass',                     CATEGORIES['SUBSCRIPTIONS'],  ''              ],
@@ -453,8 +455,67 @@ if __name__ == '__main__':
   if args.files:
     process_csv_files_in_list(args.files, args.start_date, args.end_date)
 
-  if args.summary:
-    print(summarize_transactions(args.sort_key))
-  else:
-    with open('data.json', 'w') as f:
-      f.write(encrypt(transactions_to_json(args.sort_key)))
+  # if args.summary:
+  #   print(summarize_transactions(args.sort_key))
+  # else:
+  #   with open('data.json', 'w') as f:
+  #     f.write(encrypt(transactions_to_json(args.sort_key)))
+
+  summaries = defaultdict(lambda: defaultdict(lambda: defaultdict(int)))
+
+  # data = {
+  #   'income': 0,
+  #   'expenses': 0,
+  #   'savings': 0,
+
+  #   'total savings': 0,
+  #   'total loans': 0,
+  #   'total gifts': 0,
+  #   'total charity': 0,
+  #   'each category': 0
+  # }
+
+  for t in TRANSACTIONS:
+    date = t.date.strftime('%m/%d/%Y')
+    mm, dd, yyyy = date.split('/')
+
+    if t.category == 'INCOME':
+      summaries[yyyy][mm]['income'] += t.amount
+    elif t.category == 'INVESTMENTS':
+      summaries[yyyy][mm]['investments'] += t.amount
+    else:
+      summaries[yyyy][mm]['expenses'] += t.amount
+
+      if t.category == 'GIFTS':
+        summaries[yyyy][mm]['gifts'] += t.amount
+      elif t.category == 'LOANS':
+        summaries[yyyy][mm]['loans'] += t.amount
+      elif t.category == 'CHARITY':
+        summaries[yyyy][mm]['charity'] += t.amount
+
+  total_savings = 0
+  total_loans = 0
+  total_gifts = 0
+  total_charity = 0
+  total_investments = 0
+
+  for yyyy, months in sorted(summaries.items()):
+    for mm, data in sorted(months.items()):
+      data['savings'] = data['income'] + data['expenses']
+
+      total_savings += data['savings']
+      total_loans += data['loans']
+      total_gifts += data['gifts']
+      total_charity += data['charity']
+      total_investments += data['investments']
+
+      data['total_savings'] = total_savings
+      data['total_loans'] = total_loans
+      data['total_gifts'] = total_gifts
+      data['total_charity'] = total_charity
+      data['total_investments'] = total_investments
+
+  for year, months in sorted(summaries.items()):
+    print(year)
+    for month, data in sorted(months.items()):
+      print(month, data)

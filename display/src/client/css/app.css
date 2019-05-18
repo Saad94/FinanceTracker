@@ -49,11 +49,11 @@ body {
   cursor: default;
 }
 .data_header_date, .data_element_date {
-  width: 150px;
+  width: 130px;
   text-align: center;
 }
 .data_header_tag, .data_element_tag {
-  width: 220px;
+  width: 260px;
   font-weight: bold;
   text-align: center;
 }
@@ -88,26 +88,28 @@ body {
   background-color: rgb(223, 223, 223);
 }
 
-.type_airline         {background-color: #f5f7ad;}
-.type_amazon          {background-color: #ca69ce;}
-.type_charity         {background-color: #3fecc1;}
-.type_climbing        {background-color: #caabab;}
-.type_dancing         {background-color: #d8a1f8;}
-.type_entertainment   {background-color: #c7fdff;}
-.type_essential       {background-color: #80aed3;}
-.type_gaming          {background-color: #c7fdff;}
-.type_gifts           {background-color: #63c0f7;}
-.type_groceries       {background-color: #fdb5b5;}
-.type_haircuts        {background-color: #a6c6c7;}
-.type_hotels          {background-color: #ffc2f7;}
-.type_income          {background-color: #bdff8c;}
-.type_investments     {background-color: #ff6767;}
-.type_loans           {background-color: #6f4fa3;}
-.type_mail            {background-color: #7ecfb4;}
-.type_misc            {background-color: #e9d3f6;}
-.type_restaurants     {background-color: #50a0a0;}
-.type_subscriptions   {background-color: #d1e7a7;}
-.type_transportation  {background-color: #ffc685;}
+.type_airline           {background-color: #f5f7ad;}
+.type_amazon            {background-color: #ca69ce;}
+.type_apparel           {background-color: #d8f14b;}
+.type_charity           {background-color: #3fecc1;}
+.type_dancing           {background-color: #d8a1f8;}
+.type_entertainment     {background-color: #c7fdff;}
+.type_essential         {background-color: #80aed3;}
+.type_fitness           {background-color: #caabab;}
+.type_gaming            {background-color: #c7fdff;}
+.type_gifts             {background-color: #63c0f7;}
+.type_groceries         {background-color: #fdb5b5;}
+.type_haircuts          {background-color: #a6c6c7;}
+.type_hotels            {background-color: #ffc2f7;}
+.type_income            {background-color: #bdff8c;}
+.type_investments       {background-color: #ff6767;}
+.type_loans             {background-color: #9b83c0;}
+.type_mail              {background-color: #7ecfb4;}
+.type_misc              {background-color: #e9d3f6;}
+.type_one_time_spending {background-color: #f7ba5f;}
+.type_restaurants       {background-color: #50a0a0;}
+.type_subscriptions     {background-color: #d1e7a7;}
+.type_transportation    {background-color: #ffc685;}
 
 .sidebar {
   width: 140px;
