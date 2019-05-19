@@ -5,6 +5,14 @@ require('dotenv').config();
 
 const fs = require('fs');
 
+class DefaultDict {
+  constructor(DefaultInit) {
+    return new Proxy({}, {
+      get: (target, name) => name in target ? target[name] : (target[name] = typeof DefaultInit === 'function' ? new DefaultInit().valueOf() : DefaultInit)
+    });
+  }
+}
+
 const encrypt = (data) => {
   const key = process.env.KEY;
   let result = '';
@@ -31,9 +39,71 @@ fs.copyFile(filePath, backupFilePath, (err) => {
 
 // Load the JSON data and parse it into Transactions.
 const encryptedJson = fs.readFileSync(filePath, 'utf-8');
-const data = JSON.parse(encrypt(encryptedJson));
-const allTransactions = data.map(t => new Transaction(t.id, t.date, t.tag, t.category, t.description, t.amount));
+const jsonData = JSON.parse(encrypt(encryptedJson));
+const allTransactions = jsonData.map(t => new Transaction(t.id, t.date, t.tag, t.category, t.description, t.amount));
 sort(allTransactions, 'date', 'asc');
+
+
+const calculateSummaries = () => {
+  sort(allTransactions, 'date', 'asc');
+  const summaries = new DefaultDict(() => new DefaultDict(() => new DefaultDict(0)));
+
+  allTransactions.forEach((t) => {
+    const [mm, dd, yyyy] = t.date.split('/');
+
+    if (t.category === 'INCOME') {
+      summaries[yyyy][mm]['income'] += t.amount;
+    } else if (t.category === 'INVESTMENTS') {
+      summaries[yyyy][mm]['investments'] += t.amount;
+    } else {
+      summaries[yyyy][mm]['expenses'] += t.amount;
+
+      if (t.category === 'GIFTS') {
+        summaries[yyyy][mm]['gifts'] += t.amount;
+      } else if (t.category === 'LOANS') {
+        summaries[yyyy][mm]['loans'] += t.amount;
+      } else if (t.category === 'CHARITY') {
+        summaries[yyyy][mm]['charity'] += t.amount;
+      }
+    }
+  });
+
+  let totalSavings = 0;
+  let totalLoans = 0;
+  let totalGifts = 0;
+  let totalCharity = 0;
+  let totalInvestments = 0;
+
+  Object.keys(summaries).sort().forEach((yyyy) => {
+    Object.keys(summaries[yyyy]).sort().forEach((mm) => {
+      const data = summaries[yyyy][mm];
+
+      data['savings'] = data['income'] + data['expenses'];
+
+      totalSavings += data['savings'];
+      totalLoans += data['loans'];
+      totalGifts += data['gifts'];
+      totalCharity += data['charity'];
+      totalInvestments += data['investments'];
+
+      data['totalSavings'] = totalSavings;
+      data['totalLoans'] = totalLoans;
+      data['totalGifts'] = totalGifts;
+      data['totalCharity'] = totalCharity;
+      data['totalInvestments'] = totalInvestments;
+    });
+  });
+
+  Object.keys(summaries).sort().forEach((yyyy) => {
+    Object.keys(summaries[yyyy]).sort().forEach((mm) => {
+      Object.keys(summaries[yyyy][mm]).sort().forEach((key) => {
+        summaries[yyyy][mm][key] = summaries[yyyy][mm][key].toFixed(2);
+      });
+    });
+  });
+
+  return summaries;
+};
 
 const calcCurrentTransactions = (startDate, endDate) => {
   const startIndex = startDate === null ? 0 : allTransactions.findIndex((t) => {
@@ -94,3 +164,5 @@ export const deleteTransaction = (req) => {
   // Write the new data to disk
   fs.writeFileSync(filePath, encrypt(JSON.stringify(allTransactions)));
 };
+
+export const allSummaries = () => calculateSummaries();
