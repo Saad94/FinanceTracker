@@ -4,7 +4,7 @@ import TransactionView from './TransactionView';
 
 export default class App extends Component {
   state = {
-    summaryView: false
+    summaryView: true
   };
 
   buttonClickHandler = flag => this.setState({ summaryView: flag });

@@ -17,6 +17,52 @@ body {
   overflow-y: auto;
   height: 100%;
 }
+
+.div-totals, .div-summaries {
+  display: flex;
+}
+.div-summaries {
+  margin: 50px;
+}
+.table-totals {
+  margin: 50px;
+  flex: 1;
+}
+.table-summaries {
+  flex: 1;
+  margin: 20px;
+}
+.table-totals, .table-totals th, .table-totals td, .table-summaries, .table-summaries td, .table-summaries th {
+  border: 1px solid #000000;
+  border-collapse: collapse;
+}
+.table-totals {
+  height: 30px;
+  line-height: 30px;
+}
+.table-summaries {
+  height: 20px;
+  line-height: 20px;
+  font-size: 15px;
+}
+.table-totals-row {
+  background-color: #7ac5c5;
+}
+.table-summaries-row-heading {
+  background-color: #7ac5c5;
+  height: 30px;
+  line-height: 30px;
+}
+.table-summaries-row-one {
+  background-color: #75e0a1;
+}
+.table-summaries-row-two {
+  background-color: #ecb6ee;
+}
+.table-summaries-row-three {
+  background-color: #e2d5a9;
+}
+
 .table-row {
   display: flex;
   flex-direction: row;
@@ -433,4 +479,8 @@ input[type="number"] {
 
 input, select {
   background: transparent;
+}
+
+.bold {
+  font-weight: bold;
 }

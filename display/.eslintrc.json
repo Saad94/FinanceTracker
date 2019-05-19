@@ -20,6 +20,8 @@
     "no-restricted-globals": "off",
     "no-alert": "off",
     "no-bitwise": "off",
-    "no-return-assign": "off"
+    "no-return-assign": "off",
+    "dot-notation": "off",
+    "lines-between-class-members": "off"
   }
 }

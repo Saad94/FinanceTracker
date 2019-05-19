@@ -67,7 +67,6 @@ export default class TransactionView extends Component {
   }
 
   updateStateFromSearch = (alreadyPromptedSave) => {
-    console.log('updateStateFromSearch');
     if (!alreadyPromptedSave) {
       this.promptSave();
     }
@@ -92,7 +91,6 @@ export default class TransactionView extends Component {
   }
 
   headerClickHandler = (key) => {
-    console.log('headerClickHandler');
     this.promptSave();
     const { selected, sort, } = this.state;
 
@@ -206,7 +204,6 @@ export default class TransactionView extends Component {
 
   saveClickHandler = () => {
     const { dirty, data, modifiedIds } = this.state;
-    console.log('saveClickHandler', dirty);
 
     const modifiedData = Array.from(modifiedIds).map(id => data[data.findIndex(el => el.id === id)]);
     modifiedIds.clear();
@@ -228,7 +225,6 @@ export default class TransactionView extends Component {
 
   promptSave = () => {
     const { dirty, } = this.state;
-    console.log('promptSave', dirty);
 
     if (dirty) {
       if (confirm('You\'ve modified some data. Do you want to save your changes?')) {

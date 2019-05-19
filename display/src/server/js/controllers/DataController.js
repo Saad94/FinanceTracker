@@ -47,63 +47,63 @@ sort(allTransactions, 'date', 'asc');
 const calculateSummaries = () => {
   sort(allTransactions, 'date', 'asc');
   const summaries = new DefaultDict(() => new DefaultDict(() => new DefaultDict(0)));
+  const totals = {
+    'Total Savings': 0,
+    'Total Cash': 0,
+    'Total Investments': 0,
+    'Total Loans': 0,
+    'Total Gifts': 0,
+    'Total Charity': 0
+  };
 
   allTransactions.forEach((t) => {
     const [mm, dd, yyyy] = t.date.split('/');
 
-    if (t.category === 'INCOME') {
-      summaries[yyyy][mm]['income'] += t.amount;
-    } else if (t.category === 'INVESTMENTS') {
-      summaries[yyyy][mm]['investments'] += t.amount;
-    } else {
-      summaries[yyyy][mm]['expenses'] += t.amount;
-
-      if (t.category === 'GIFTS') {
-        summaries[yyyy][mm]['gifts'] += t.amount;
-      } else if (t.category === 'LOANS') {
-        summaries[yyyy][mm]['loans'] += t.amount;
-      } else if (t.category === 'CHARITY') {
-        summaries[yyyy][mm]['charity'] += t.amount;
-      }
+    if (t.category !== 'INCOME' && t.category !== 'INVESTMENTS') {
+      summaries[yyyy][mm]['EXPENSES'] += t.amount;
     }
-  });
 
-  let totalSavings = 0;
-  let totalLoans = 0;
-  let totalGifts = 0;
-  let totalCharity = 0;
-  let totalInvestments = 0;
+    summaries[yyyy][mm][t.category] += t.amount;
+  });
 
   Object.keys(summaries).sort().forEach((yyyy) => {
     Object.keys(summaries[yyyy]).sort().forEach((mm) => {
       const data = summaries[yyyy][mm];
 
-      data['savings'] = data['income'] + data['expenses'];
+      data['SAVINGS'] = data['INCOME'] + data['EXPENSES'];
 
-      totalSavings += data['savings'];
-      totalLoans += data['loans'];
-      totalGifts += data['gifts'];
-      totalCharity += data['charity'];
-      totalInvestments += data['investments'];
-
-      data['totalSavings'] = totalSavings;
-      data['totalLoans'] = totalLoans;
-      data['totalGifts'] = totalGifts;
-      data['totalCharity'] = totalCharity;
-      data['totalInvestments'] = totalInvestments;
+      totals['Total Savings'] += data['SAVINGS'];
+      totals['Total Investments'] += data['INVESTMENTS'];
+      totals['Total Loans'] += data['LOANS'];
+      totals['Total Gifts'] += data['GIFTS'];
+      totals['Total Charity'] += data['CHARITY'];
     });
   });
+
+  totals['Total Cash'] = totals['Total Savings'] + totals['Total Investments'];
 
   Object.keys(summaries).sort().forEach((yyyy) => {
     Object.keys(summaries[yyyy]).sort().forEach((mm) => {
       Object.keys(summaries[yyyy][mm]).sort().forEach((key) => {
+        if (key !== 'SAVINGS') {
+          summaries[yyyy][mm][key] = Math.abs(summaries[yyyy][mm][key]);
+        }
         summaries[yyyy][mm][key] = summaries[yyyy][mm][key].toFixed(2);
       });
     });
   });
 
-  return summaries;
+  Object.keys(totals).sort().forEach((key) => {
+    totals[key] = Math.abs(totals[key]).toFixed(2);
+  });
+
+  return {
+    summaries,
+    totals
+  };
 };
+
+calculateSummaries();
 
 const calcCurrentTransactions = (startDate, endDate) => {
   const startIndex = startDate === null ? 0 : allTransactions.findIndex((t) => {

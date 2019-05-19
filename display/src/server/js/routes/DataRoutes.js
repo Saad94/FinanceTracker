@@ -33,7 +33,7 @@ router.post('/delete', (req, res) => {
 });
 
 router.get('/summaries', (req, res) => res.send({
-  summaries: DataController.allSummaries()
+  data: DataController.allSummaries()
 }));
 
 export default router;

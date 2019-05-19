@@ -107,3 +107,15 @@ export const numDaysInMonth = (year, month) => new Date(year, month + 1, 0).getD
 export const calcStartDate = (year, month) => Date.parse(`${year}-${(month + 1).toString().length === 1 ? '0' + (month + 1).toString() : (month + 1).toString()}-01`);
 
 export const calcEndDate = (year, month) => Date.parse(`${year}-${(month + 1).toString().length === 1 ? '0' + (month + 1).toString() : (month + 1).toString()}-${numDaysInMonth(year, month)}`);
+
+export const chunk = (arr, len) => {
+  const chunks = [];
+  const n = arr.length;
+  let i = 0;
+
+  while (i < n) {
+    chunks.push(arr.slice(i, i += len));
+  }
+
+  return chunks;
+};
