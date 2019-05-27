@@ -98,32 +98,30 @@ export default class SummaryView extends Component {
     </table>
   );
 
-  renderSummaries = (summaries) => {
-    return (
-      <div>
-        {
-          Object.keys(summaries).sort().map((year) => {
-            const monthGroups = chunk(Object.keys(summaries[year]).sort(), 3);
+  renderSummaries = summaries => (
+    <div>
+      {
+        Object.keys(summaries).sort().reverse().map((year) => {
+          const monthGroups = chunk(Object.keys(summaries[year]).sort().reverse(), 3);
 
-            return (
-              <div key={`${year}-data`}>
-                <h2>{year}</h2>
-                {
-                  monthGroups.map(monthGroup => (
-                    <div className="div-summaries" key={`${year}-${monthGroup}`}>
-                      { this.renderSummaryTable(summaries[year][monthGroup[0]], year, monthGroup[0]) }
-                      { this.renderSummaryTable(summaries[year][monthGroup[1]], year, monthGroup[1]) }
-                      { this.renderSummaryTable(summaries[year][monthGroup[2]], year, monthGroup[2]) }
-                    </div>
-                  ))
-                }
-              </div>
-            );
-          })
-        }
-      </div>
-    );
-  }
+          return (
+            <div key={`${year}-data`}>
+              <h2>{year}</h2>
+              {
+                monthGroups.map(monthGroup => (
+                  <div className="div-summaries" key={`${year}-${monthGroup}`}>
+                    { this.renderSummaryTable(summaries[year][monthGroup[0]], year, monthGroup[0]) }
+                    { this.renderSummaryTable(summaries[year][monthGroup[1]], year, monthGroup[1]) }
+                    { this.renderSummaryTable(summaries[year][monthGroup[2]], year, monthGroup[2]) }
+                  </div>
+                ))
+              }
+            </div>
+          );
+        })
+      }
+    </div>
+  );
 
   renderData = () => {
     const { data, fetchInProgress } = this.state;

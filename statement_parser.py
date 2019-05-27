@@ -81,6 +81,7 @@ ALIASES = {
   'UBER'                        : ['Uber',                          CATEGORIES['TRANSPORTATION'], ''              ],
   'GROUNDSHUTTLE.COM'           : ['Groundshuttle',                 CATEGORIES['TRANSPORTATION'], ''              ],
   'MYTAXI.PH'                   : ['Mytaxi.ph',                     CATEGORIES['TRANSPORTATION'], ''              ],
+  'AMTRAK'                      : ['Amtrak',                        CATEGORIES['TRANSPORTATION'], ''              ],
   'AMAZON.COM'                  : ['Amazon',                        CATEGORIES['AMAZON'],         ''              ],
   'AMZN MKTP'                   : ['Amazon',                        CATEGORIES['AMAZON'],         ''              ],
   'AMAZON MKTPLACE'             : ['Amazon',                        CATEGORIES['AMAZON'],         ''              ],
@@ -119,6 +120,7 @@ ALIASES = {
   'FINLEY\'S'                   : ['Finley\'s',                     CATEGORIES['HAIRCUTS'],       ''              ],
   'Robinhood'                   : ['Robinhood',                     CATEGORIES['INVESTMENTS'],    'Stocks'        ],
   'Coinbase.Com'                : ['Coinbase',                      CATEGORIES['INVESTMENTS'],    'Cryptocurrency'],
+  'Betterment'                  : ['Betterment',                    CATEGORIES['INVESTMENTS'],    'Stocks'        ],
   'ALAMO'                       : ['Alamo Drafthouse',              CATEGORIES['ENTERTAINMENT'],  ''              ],
   'ZOMBIE CHARGE'               : ['Zombie Charge',                 CATEGORIES['ENTERTAINMENT'],  ''              ],
   'SILENT DISCO'                : ['Silent Disco',                  CATEGORIES['ENTERTAINMENT'],  ''              ],
@@ -455,67 +457,55 @@ if __name__ == '__main__':
   if args.files:
     process_csv_files_in_list(args.files, args.start_date, args.end_date)
 
-  # if args.summary:
-  #   print(summarize_transactions(args.sort_key))
-  # else:
-  #   with open('data.json', 'w') as f:
-  #     f.write(encrypt(transactions_to_json(args.sort_key)))
+  if args.summary:
+    print(summarize_transactions(args.sort_key))
+  else:
+    with open('data.json', 'w') as f:
+      f.write(encrypt(transactions_to_json(args.sort_key)))
 
-  summaries = defaultdict(lambda: defaultdict(lambda: defaultdict(int)))
+  # summaries = defaultdict(lambda: defaultdict(lambda: defaultdict(int)))
 
-  # data = {
-  #   'income': 0,
-  #   'expenses': 0,
-  #   'savings': 0,
+  # for t in TRANSACTIONS:
+  #   date = t.date.strftime('%m/%d/%Y')
+  #   mm, dd, yyyy = date.split('/')
 
-  #   'total savings': 0,
-  #   'total loans': 0,
-  #   'total gifts': 0,
-  #   'total charity': 0,
-  #   'each category': 0
-  # }
+  #   if t.category == 'INCOME':
+  #     summaries[yyyy][mm]['income'] += t.amount
+  #   elif t.category == 'INVESTMENTS':
+  #     summaries[yyyy][mm]['investments'] += t.amount
+  #   else:
+  #     summaries[yyyy][mm]['expenses'] += t.amount
 
-  for t in TRANSACTIONS:
-    date = t.date.strftime('%m/%d/%Y')
-    mm, dd, yyyy = date.split('/')
+  #     if t.category == 'GIFTS':
+  #       summaries[yyyy][mm]['gifts'] += t.amount
+  #     elif t.category == 'LOANS':
+  #       summaries[yyyy][mm]['loans'] += t.amount
+  #     elif t.category == 'CHARITY':
+  #       summaries[yyyy][mm]['charity'] += t.amount
 
-    if t.category == 'INCOME':
-      summaries[yyyy][mm]['income'] += t.amount
-    elif t.category == 'INVESTMENTS':
-      summaries[yyyy][mm]['investments'] += t.amount
-    else:
-      summaries[yyyy][mm]['expenses'] += t.amount
+  # total_savings = 0
+  # total_loans = 0
+  # total_gifts = 0
+  # total_charity = 0
+  # total_investments = 0
 
-      if t.category == 'GIFTS':
-        summaries[yyyy][mm]['gifts'] += t.amount
-      elif t.category == 'LOANS':
-        summaries[yyyy][mm]['loans'] += t.amount
-      elif t.category == 'CHARITY':
-        summaries[yyyy][mm]['charity'] += t.amount
+  # for yyyy, months in sorted(summaries.items()):
+  #   for mm, data in sorted(months.items()):
+  #     data['savings'] = data['income'] + data['expenses']
 
-  total_savings = 0
-  total_loans = 0
-  total_gifts = 0
-  total_charity = 0
-  total_investments = 0
+  #     total_savings += data['savings']
+  #     total_loans += data['loans']
+  #     total_gifts += data['gifts']
+  #     total_charity += data['charity']
+  #     total_investments += data['investments']
 
-  for yyyy, months in sorted(summaries.items()):
-    for mm, data in sorted(months.items()):
-      data['savings'] = data['income'] + data['expenses']
+  #     data['total_savings'] = total_savings
+  #     data['total_loans'] = total_loans
+  #     data['total_gifts'] = total_gifts
+  #     data['total_charity'] = total_charity
+  #     data['total_investments'] = total_investments
 
-      total_savings += data['savings']
-      total_loans += data['loans']
-      total_gifts += data['gifts']
-      total_charity += data['charity']
-      total_investments += data['investments']
-
-      data['total_savings'] = total_savings
-      data['total_loans'] = total_loans
-      data['total_gifts'] = total_gifts
-      data['total_charity'] = total_charity
-      data['total_investments'] = total_investments
-
-  for year, months in sorted(summaries.items()):
-    print(year)
-    for month, data in sorted(months.items()):
-      print(month, data)
+  # for year, months in sorted(summaries.items()):
+  #   print(year)
+  #   for month, data in sorted(months.items()):
+  #     print(month, data)
