@@ -131,7 +131,7 @@ ALIASES = {
   'Retailmenot, Inc'            : ['RMN Reimbursements',            CATEGORIES['INCOME'],         ''              ],
   'Retailmenot Inc Direct Dep'  : ['Salary',                        CATEGORIES['INCOME'],         ''              ],
   'CHIPOTLE'                    : ['Chipotle',                      CATEGORIES['RESTAURANTS'],    ''              ],
-  'TORCHYS TACOS'               : ['Salary',                        CATEGORIES['RESTAURANTS'],    ''              ],
+  'TORCHYS TACOS'               : ['Torchy\'s Tacos',               CATEGORIES['RESTAURANTS'],    ''              ],
   'SNOOZE'                      : ['Snooze: An AM Eatery',          CATEGORIES['RESTAURANTS'],    ''              ],
   'DONFOODTRUCK'                : ['Don\'s Japanese Kitchen',       CATEGORIES['RESTAURANTS'],    ''              ],
   'RAMEN TATSU-YA'              : ['Ramen Tatsu Ya',                CATEGORIES['RESTAURANTS'],    ''              ],
