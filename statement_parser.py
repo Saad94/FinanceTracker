@@ -93,6 +93,7 @@ ALIASES = {
   'DELTA AIR LINES'             : ['Delta Airlines',                CATEGORIES['AIRLINES'],       ''              ],
   'EMIRATES'                    : ['Emirates',                      CATEGORIES['AIRLINES'],       ''              ],
   'EVA AIR'                     : ['Eva Air',                       CATEGORIES['AIRLINES'],       ''              ],
+  'FRONTIER AIRLINES'           : ['Frontier Airlines',             CATEGORIES['AIRLINES'],       ''              ],
   'Pakistan Air'                : ['Pakistan Internation Airlines', CATEGORIES['AIRLINES'],       ''              ],
   'Qatar Airways'               : ['Qatar Airways',                 CATEGORIES['AIRLINES'],       ''              ],
   'Southwest Airlines'          : ['Southwest Airlines',            CATEGORIES['AIRLINES'],       ''              ],
@@ -111,6 +112,7 @@ ALIASES = {
   'COUNTY MARKET'               : ['County Market',                 CATEGORIES['GROCERIES'],      ''              ],
   'ANYDAY GROCERY'              : ['Anyday Grocery',                CATEGORIES['GROCERIES'],      ''              ],
   'THE AUSTINITE MARK'          : ['The Austinite Market',          CATEGORIES['GROCERIES'],      ''              ],
+  'LAMAR PLAZA'                 : ['Lamar Plaza Drug Store',        CATEGORIES['GROCERIES'],      ''              ],
   'AIRBNB'                      : ['Airbnb',                        CATEGORIES['HOTELS'],         ''              ],
   'UPS'                         : ['UPS',                           CATEGORIES['MAIL'],           ''              ],
   'USPS'                        : ['USPS',                          CATEGORIES['MAIL'],           ''              ],
@@ -169,7 +171,10 @@ ALIASES = {
   'HOP DODDY'                   : ['Hopdoddy\'s',                   CATEGORIES['RESTAURANTS'],    ''              ],
   'NI-KOME'                     : ['Ni-Kome Sushi',                 CATEGORIES['RESTAURANTS'],    ''              ],
   'MAGNOLIA CAFE'               : ['Magnolia Cafe',                 CATEGORIES['RESTAURANTS'],    ''              ],
-  'GOURDOUGH\'S'                : ['Gourdough\'s',                  CATEGORIES['RESTAURANTS'],    ''              ]
+  'GOURDOUGH\'S'                : ['Gourdough\'s',                  CATEGORIES['RESTAURANTS'],    ''              ],
+  'LORO'                        : ['Loro',                          CATEGORIES['RESTAURANTS'],    ''              ],
+  'BANGERS SAUSAGE'             : ['Banger\'s Sausage House',       CATEGORIES['RESTAURANTS'],    ''              ],
+  'KERBEY LANE'                 : ['Kerbey Lane Cafe',              CATEGORIES['RESTAURANTS'],    ''              ]
 }
 
 # Drop Labels
