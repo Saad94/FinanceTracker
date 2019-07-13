@@ -28,6 +28,7 @@ export const classNames = {
   typeInvestments: 'type_investments',
   typeLoans: 'type_loans',
   typeMail: 'type_mail',
+  typeMedical: 'type_medical',
   typeMisc: 'type_misc',
   typeOneTimeSpending: 'type_one_time_spending',
   typeRestaurants: 'type_restaurants',
@@ -46,7 +47,7 @@ export const classNames = {
   search: 'search'
 };
 
-export const categoryNames = ['AIRLINES', 'AMAZON', 'APPAREL', 'CHARITY', 'DANCING', 'ENTERTAINMENT', 'ESSENTIALS', 'FITNESS', 'GAMING', 'GIFTS', 'GROCERIES', 'HAIRCUTS', 'HOTELS', 'INCOME', 'INVESTMENTS', 'LOANS', 'MAIL', 'MISC', 'ONE_TIME_SPENDING', 'RESTAURANTS', 'SUBSCRIPTIONS', 'TRANSPORTATION'];
+export const categoryNames = ['AIRLINES', 'AMAZON', 'APPAREL', 'CHARITY', 'DANCING', 'ENTERTAINMENT', 'ESSENTIALS', 'FITNESS', 'GAMING', 'GIFTS', 'GROCERIES', 'HAIRCUTS', 'HOTELS', 'INCOME', 'INVESTMENTS', 'LOANS', 'MAIL', 'MEDICAL', 'MISC', 'ONE_TIME_SPENDING', 'RESTAURANTS', 'SUBSCRIPTIONS', 'TRANSPORTATION'];
 
 export const categoryToClassName = (category) => {
   switch (category) {
@@ -67,6 +68,7 @@ export const categoryToClassName = (category) => {
     case 'INVESTMENTS': return classNames.typeInvestments;
     case 'LOANS': return classNames.typeLoans;
     case 'MAIL': return classNames.typeMail;
+    case 'MEDICAL': return classNames.typeMedical;
     case 'MISC': return classNames.typeMisc;
     case 'ONE_TIME_SPENDING': return classNames.typeOneTimeSpending;
     case 'RESTAURANTS': return classNames.typeRestaurants;

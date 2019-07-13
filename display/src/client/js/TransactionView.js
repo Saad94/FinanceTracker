@@ -126,6 +126,7 @@ export default class TransactionView extends Component {
     const category = document.getElementById('add_transaction_category').value;
     const description = document.getElementById('add_transaction_description').value;
     const amount = parseFloat(parseFloat(document.getElementById('add_transaction_amount').value).toFixed(2));
+    const isExpense = document.getElementById('add_transaction_is_expense').value;
     let error = false;
 
     if (date === 'null') {
@@ -140,7 +141,7 @@ export default class TransactionView extends Component {
     } else {
       document.getElementById('add_transaction_description').classList.remove('add-transaction-table-error');
     }
-    if (isNaN(amount) || amount === 0) {
+    if (isNaN(amount) || amount <= 0) {
       document.getElementById('add_transaction_amount').classList.add('add-transaction-table-error');
       error = true;
     } else {
@@ -150,12 +151,14 @@ export default class TransactionView extends Component {
     if (!error) {
       const { data, } = this.state;
 
+      const amountWithSign = isExpense === 'True' ? amount * -1.00 : amount;
+
       const newTransaction = {
         date,
         tag,
         category,
         description,
-        amount
+        amount: amountWithSign
       };
 
       fetch('/api/create', {
@@ -287,6 +290,15 @@ export default class TransactionView extends Component {
                   <tr>
                     <th>Amount</th>
                     <td><input type="number" placeholder="0.00" id="add_transaction_amount" /></td>
+                  </tr>
+                  <tr>
+                    <th>Is Expense?</th>
+                    <td>
+                      <select defaultValue="True" id="add_transaction_is_expense">
+                        <option value="True" key="True">True</option>
+                        <option value="False" key="False">False</option>
+                      </select>
+                    </td>
                   </tr>
                 </tbody>
               </table>
