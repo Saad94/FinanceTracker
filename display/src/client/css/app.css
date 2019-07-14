@@ -321,7 +321,7 @@ body {
 }
 .button-viewSelect {
   border-radius:0px;
-  width: 50%;
+  flex: 1;
   height: 40px;
   line-height: 40px;
   cursor: pointer;
@@ -337,8 +337,9 @@ body {
 .viewSelect {
   position: absolute;
   top: 0;
-  left: 35%;
-  width:30%;
+  left: 32%;
+  width: 36%;
+  display: flex;
 }
 
 .lds-hourglass {

@@ -36,4 +36,8 @@ router.get('/summaries', (req, res) => res.send({
   data: DataController.allSummaries()
 }));
 
+router.get('/trends/:lookbackMonths', (req, res) => res.send({
+  data: DataController.trends(req)
+}));
+
 export default router;

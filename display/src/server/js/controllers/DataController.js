@@ -1,5 +1,6 @@
 import Transaction from '../models/Transaction';
 import sort from '../sort';
+import { categoryNames, monthNumToString } from '../../../../public/base';
 
 require('dotenv').config();
 
@@ -166,3 +167,33 @@ export const deleteTransaction = (req) => {
 };
 
 export const allSummaries = () => calculateSummaries();
+
+export const trends = (req) => {
+  const lookbackMonths = parseInt(req.params.lookbackMonths, 10);
+  const { summaries } = calculateSummaries();
+  const data = {};
+  let yyyy = new Date().getFullYear();
+  let mm = new Date().getMonth();
+  let monthsProcessed = 0;
+  categoryNames.forEach(category => data[category] = {});
+
+  while (monthsProcessed !== lookbackMonths) {
+    const yyyyKey = yyyy.toString(10);
+    const mmKey = monthNumToString(mm);
+    const key = `${yyyyKey}-${mmKey}`;
+
+    categoryNames.forEach((category) => {
+      const amount = category in summaries[yyyyKey][mmKey] ? parseFloat(summaries[yyyyKey][mmKey][category]) : 0;
+      data[category][key] = amount;
+    });
+
+    mm -= 1;
+    if (mm < 0) {
+      mm = 11;
+      yyyy--;
+    }
+    monthsProcessed++;
+  }
+
+  return data;
+};

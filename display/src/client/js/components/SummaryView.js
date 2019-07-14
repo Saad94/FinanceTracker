@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { chunk } from '../../../public/base';
+import { chunk } from '../../../../public/base';
 
 export default class SummaryView extends Component {
   state = {

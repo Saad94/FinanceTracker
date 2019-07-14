@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import Transaction from './components/Transaction';
-import Sidebar from './components/Sidebar';
-import { calcStartDate, calcEndDate, toDate } from '../../../public/base';
+import AddTransaction from './AddTransaction';
+import Search from './Search';
+import Sidebar from './Sidebar';
+import Transaction from './Transaction';
+import { calcStartDate, calcEndDate, toDate } from '../../../../public/base';
 import '@vaadin/vaadin-date-picker/vaadin-date-picker';
-import '../css/app.css';
-import Search from './components/Search';
-import AddTransaction from './components/AddTransaction';
 
 export default class TransactionView extends Component {
   state = {
