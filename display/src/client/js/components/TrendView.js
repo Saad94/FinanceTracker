@@ -1,27 +1,50 @@
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
-import * as chartjs from "chart.js";
-import { chunk } from '../../../../public/base';
+import { chunk, categoryNames } from '../../../../public/base';
 
 export default class TrendView extends Component {
   state = {
     data: null
   };
 
-  totalsTableRowOrderOne = ['Total Savings', 'Total Cash', 'Total Investments'];
-  totalsTableRowOrderTwo = ['Total Loans', 'Total Gifts', 'Total Charity'];
-  summariesTableRowOrderOne = ['INCOME', 'EXPENSES', 'SAVINGS'];
-  summariesTableRowOrderTwo = ['ESSENTIALS', 'ONE_TIME_SPENDING', 'INVESTMENTS', 'LOANS', 'GROCERIES', 'TRANSPORTATION', 'RESTAURANTS', 'FITNESS', 'DANCING', 'MEDICAL'];
-  summariesTableRowOrderThree = ['ENTERTAINMENT', 'SUBSCRIPTIONS', 'AIRLINES', 'AMAZON', 'APPAREL', 'GAMING', 'HAIRCUTS', 'GIFTS', 'CHARITY', 'HOTELS', 'MAIL', 'MISC'];
+  COLORS = {
+    AIRLINE: '#f5f7adcc',
+    AMAZON: '#ca69cecc',
+    APPAREL: '#d8f14bcc',
+    CHARITY: '#3fecc1cc',
+    DANCING: '#d8a1f8cc',
+    ENTERTAINMENT: '#c7fdffcc',
+    ESSENTIALS: '#80aed3cc',
+    EXPENSES: '#d63737cc',
+    FITNESS: '#caababcc',
+    GAMING: '#c7fdffcc',
+    GIFTS: '#63c0f7cc',
+    GROCERIES: '#fdb5b5cc',
+    HAIRCUTS: '#a6c6c7cc',
+    HOTELS: '#ffc2f7cc',
+    INCOME: '#52eb66cc',
+    INVESTMENTS: '#ff6767cc',
+    LOANS: '#9b83c0cc',
+    MAIL: '#7ecfb4cc',
+    MEDICAL: '#729b8ccc',
+    MISC: '#e9d3f6cc',
+    ONE_TIME_SPENDING: '#f7ba5fcc',
+    RESTAURANTS: '#50a0a0cc',
+    SAVINGS: '#615fe6cc',
+    SUBSCRIPTIONS: '#d1e7a7cc',
+    TRANSPORTATION: '#ffc685cc',
+  }
+
+  TRENDS_ORDER = ['INCOME', 'EXPENSES', 'SAVINGS', 'ESSENTIALS', 'ONE_TIME_SPENDING', 'INVESTMENTS', 'LOANS', 'GROCERIES', 'TRANSPORTATION', 'RESTAURANTS', 'FITNESS', 'DANCING', 'MEDICAL', 'ENTERTAINMENT', 'SUBSCRIPTIONS', 'AIRLINES', 'AMAZON', 'APPAREL', 'GAMING', 'HAIRCUTS', 'GIFTS', 'CHARITY', 'HOTELS', 'MAIL', 'MISC'];
+  UNACCOUNTED_FOR_KEYS = [...categoryNames].filter(el => !this.TRENDS_ORDER.includes(el));
 
   componentDidMount() {
     this.setState({ fetchInProgress: true });
+    this.TRENDS_ORDER.push(this.UNACCOUNTED_FOR_KEYS);
 
-    fetch('/api/trends/12')
+    fetch('/api/trends/20')
       .then(res => res.json())
       .then((res) => {
-        console.log(res.data);
-
         this.setState({
           data: res.data,
           fetchInProgress: false
@@ -32,18 +55,19 @@ export default class TrendView extends Component {
   renderGraphs = data => (
     <div>
       {
-        Object.keys(data).map((category) => {
+        this.TRENDS_ORDER.map((category) => {
+          if (!(category in data)) {
+            return '';
+          }
+
           const chartData = {
             labels: [],
             datasets: [
               {
                 label: category,
-                backgroundColor: 'rgba(255, 0, 255, 0.2)',
-                strokeColor: 'rgba(220, 220, 220, 1)',
-                pointColor: 'rgba(220, 220, 220, 1)',
-                pointStrokeColor: '#fff',
-                pointHighlightFill: '#fff',
-                pointHighlightStroke: 'rgba(220, 220, 220, 1)',
+                backgroundColor: this.COLORS[category],
+                pointBorderColor: '#00000055',
+                pointBackgroundColor: '#00000055',
                 data: []
               }
             ]
@@ -54,7 +78,11 @@ export default class TrendView extends Component {
             chartData.datasets[0].data.push(data[category][datapoint]);
           });
 
-          return <Line data={chartData} width={600} height={150} />;
+          return (
+            <div className="div-graph" key={category}>
+              <Line data={chartData} width={600} height={125} />
+            </div>
+          );
         })
       }
     </div>

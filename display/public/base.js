@@ -17,7 +17,7 @@ export const classNames = {
   typeCharity: 'type_charity',
   typeDancing: 'type_dancing',
   typeEntertainment: 'type_entertainment',
-  typeEssential: 'type_essential',
+  typeEssentials: 'type_essentials',
   typeFitness: 'type_fitness',
   typeGaming: 'type_gaming',
   typeGifts: 'type_gifts',
@@ -57,7 +57,7 @@ export const categoryToClassName = (category) => {
     case 'CHARITY': return classNames.typeCharity;
     case 'DANCING': return classNames.typeDancing;
     case 'ENTERTAINMENT': return classNames.typeEntertainment;
-    case 'ESSENTIALS': return classNames.typeEssential;
+    case 'ESSENTIALS': return classNames.typeEssentials;
     case 'FITNESS': return classNames.typeFitness;
     case 'GAMING': return classNames.typeGaming;
     case 'GIFTS': return classNames.typeGifts;

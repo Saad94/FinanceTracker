@@ -170,19 +170,20 @@ export const allSummaries = () => calculateSummaries();
 
 export const trends = (req) => {
   const lookbackMonths = parseInt(req.params.lookbackMonths, 10);
+  const categories = [...categoryNames, 'EXPENSES', 'SAVINGS'];
   const { summaries } = calculateSummaries();
   const data = {};
   let yyyy = new Date().getFullYear();
   let mm = new Date().getMonth();
   let monthsProcessed = 0;
-  categoryNames.forEach(category => data[category] = {});
+  categories.forEach(category => data[category] = {});
 
   while (monthsProcessed !== lookbackMonths) {
     const yyyyKey = yyyy.toString(10);
     const mmKey = monthNumToString(mm);
     const key = `${yyyyKey}-${mmKey}`;
 
-    categoryNames.forEach((category) => {
+    categories.forEach((category) => {
       const amount = category in summaries[yyyyKey][mmKey] ? parseFloat(summaries[yyyyKey][mmKey][category]) : 0;
       data[category][key] = amount;
     });

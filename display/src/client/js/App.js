@@ -12,7 +12,7 @@ export default class App extends Component {
   }
 
   state = {
-    activeView: this.VIEWS.TRENDS
+    activeView: this.VIEWS.SUMMARIES
   };
 
   changeView = activeView => this.setState({ activeView });

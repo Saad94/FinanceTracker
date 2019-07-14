@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { chunk } from '../../../../public/base';
+import { chunk, categoryNames } from '../../../../public/base';
 
 export default class SummaryView extends Component {
   state = {
@@ -11,9 +11,11 @@ export default class SummaryView extends Component {
   summariesTableRowOrderOne = ['INCOME', 'EXPENSES', 'SAVINGS'];
   summariesTableRowOrderTwo = ['ESSENTIALS', 'ONE_TIME_SPENDING', 'INVESTMENTS', 'LOANS', 'GROCERIES', 'TRANSPORTATION', 'RESTAURANTS', 'FITNESS', 'DANCING', 'MEDICAL'];
   summariesTableRowOrderThree = ['ENTERTAINMENT', 'SUBSCRIPTIONS', 'AIRLINES', 'AMAZON', 'APPAREL', 'GAMING', 'HAIRCUTS', 'GIFTS', 'CHARITY', 'HOTELS', 'MAIL', 'MISC'];
+  unaccountedForKeys = [...categoryNames].filter(el => ![...this.summariesTableRowOrderOne, ...this.summariesTableRowOrderTwo, ...this.summariesTableRowOrderThree].includes(el));
 
   componentDidMount() {
     this.setState({ fetchInProgress: true });
+    this.summariesTableRowOrderThree.push(this.unaccountedForKeys);
 
     fetch('/api/summaries')
       .then(res => res.json())
