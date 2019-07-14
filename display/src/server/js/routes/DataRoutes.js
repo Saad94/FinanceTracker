@@ -32,4 +32,8 @@ router.post('/delete', (req, res) => {
   res.sendStatus(200);
 });
 
+router.get('/summaries', (req, res) => res.send({
+  data: DataController.allSummaries()
+}));
+
 export default router;

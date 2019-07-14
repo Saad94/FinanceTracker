@@ -3,20 +3,66 @@ body {
   background-color: rgb(236, 213, 177);
 }
 
+.viewContent {
+  padding-top: 35px;
+}
+
 .body {
-  position: absolute;
-  height: 630px;
-  top: 85px;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding: 20px;
+  padding: 10px;
+  padding-top: 15px;
+  height: 600px;
 }
 
 .container {
   overflow-y: auto;
   height: 100%;
 }
+
+.div-totals, .div-summaries {
+  display: flex;
+}
+.div-summaries {
+  margin: 50px;
+}
+.table-totals {
+  margin: 50px;
+  flex: 1;
+}
+.table-summaries {
+  flex: 1;
+  margin: 20px;
+}
+.table-totals, .table-totals th, .table-totals td, .table-summaries, .table-summaries td, .table-summaries th {
+  border: 1px solid #000000;
+  border-collapse: collapse;
+}
+.table-totals {
+  height: 30px;
+  line-height: 30px;
+}
+.table-summaries {
+  height: 20px;
+  line-height: 20px;
+  font-size: 15px;
+}
+.table-totals-row {
+  background-color: #7ac5c5;
+}
+.table-summaries-row-heading {
+  background-color: #7ac5c5;
+  height: 30px;
+  line-height: 30px;
+}
+.table-summaries-row-one {
+  background-color: #75e0a1;
+}
+.table-summaries-row-two {
+  background-color: #ecb6ee;
+}
+.table-summaries-row-three {
+  background-color: #e2d5a9;
+}
+
 .table-row {
   display: flex;
   flex-direction: row;
@@ -49,11 +95,11 @@ body {
   cursor: default;
 }
 .data_header_date, .data_element_date {
-  width: 150px;
+  width: 130px;
   text-align: center;
 }
 .data_header_tag, .data_element_tag {
-  width: 220px;
+  width: 260px;
   font-weight: bold;
   text-align: center;
 }
@@ -88,26 +134,29 @@ body {
   background-color: rgb(223, 223, 223);
 }
 
-.type_airline         {background-color: #f5f7ad;}
-.type_amazon          {background-color: #ca69ce;}
-.type_charity         {background-color: #3fecc1;}
-.type_climbing        {background-color: #caabab;}
-.type_dancing         {background-color: #d8a1f8;}
-.type_entertainment   {background-color: #c7fdff;}
-.type_essential       {background-color: #80aed3;}
-.type_gaming          {background-color: #c7fdff;}
-.type_gifts           {background-color: #63c0f7;}
-.type_groceries       {background-color: #fdb5b5;}
-.type_haircuts        {background-color: #a6c6c7;}
-.type_hotels          {background-color: #ffc2f7;}
-.type_income          {background-color: #bdff8c;}
-.type_investments     {background-color: #ff6767;}
-.type_loans           {background-color: #6f4fa3;}
-.type_mail            {background-color: #7ecfb4;}
-.type_misc            {background-color: #e9d3f6;}
-.type_restaurants     {background-color: #50a0a0;}
-.type_subscriptions   {background-color: #d1e7a7;}
-.type_transportation  {background-color: #ffc685;}
+.type_airline           {background-color: #f5f7ad;}
+.type_amazon            {background-color: #ca69ce;}
+.type_apparel           {background-color: #d8f14b;}
+.type_charity           {background-color: #3fecc1;}
+.type_dancing           {background-color: #d8a1f8;}
+.type_entertainment     {background-color: #c7fdff;}
+.type_essential         {background-color: #80aed3;}
+.type_fitness           {background-color: #caabab;}
+.type_gaming            {background-color: #c7fdff;}
+.type_gifts             {background-color: #63c0f7;}
+.type_groceries         {background-color: #fdb5b5;}
+.type_haircuts          {background-color: #a6c6c7;}
+.type_hotels            {background-color: #ffc2f7;}
+.type_income            {background-color: #bdff8c;}
+.type_investments       {background-color: #ff6767;}
+.type_loans             {background-color: #9b83c0;}
+.type_mail              {background-color: #7ecfb4;}
+.type_medical           {background-color: #729b8c;}
+.type_misc              {background-color: #e9d3f6;}
+.type_one_time_spending {background-color: #f7ba5f;}
+.type_restaurants       {background-color: #50a0a0;}
+.type_subscriptions     {background-color: #d1e7a7;}
+.type_transportation    {background-color: #ffc685;}
 
 .sidebar {
   width: 140px;
@@ -270,6 +319,27 @@ body {
   background:linear-gradient(to bottom, #6bcccc 5%, #56c0c0 100%);
   background-color:#6c7c7c;
 }
+.button-viewSelect {
+  border-radius:0px;
+  width: 50%;
+  height: 40px;
+  line-height: 40px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.button-viewSelect:hover {
+  background-color: #b69f5f;
+}
+.button-viewSelectActive {
+  background-color: #e7b31f;
+}
+
+.viewSelect {
+  position: absolute;
+  top: 0;
+  left: 35%;
+  width:30%;
+}
 
 .lds-hourglass {
   display: inline-block;
@@ -410,4 +480,8 @@ input[type="number"] {
 
 input, select {
   background: transparent;
+}
+
+.bold {
+  font-weight: bold;
 }

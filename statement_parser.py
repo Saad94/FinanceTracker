@@ -24,11 +24,12 @@ TRANSACTIONS = []
 CATEGORIES = {
   'AIRLINES': 'AIRLINES',
   'AMAZON': 'AMAZON',
+  'APPAREL': 'APPAREL',
   'CHARITY': 'CHARITY',
-  'CLIMBING': 'CLIMBING',
   'DANCING': 'DANCING',
   'ENTERTAINMENT': 'ENTERTAINMENT',
   'ESSENTIALS': 'ESSENTIALS',
+  'FITNESS': 'FITNESS',
   'GAMING': 'GAMING',
   'GIFTS': 'GIFTS',
   'GROCERIES': 'GROCERIES',
@@ -39,6 +40,7 @@ CATEGORIES = {
   'LOANS': 'LOANS',
   'MAIL': 'MAIL',
   'MISC': 'MISC',
+  'ONE_TIME_SPENDING': 'ONE_TIME_SPENDING',
   'RESTAURANTS': 'RESTAURANTS',
   'SUBSCRIPTIONS': 'SUBSCRIPTIONS',
   'TRANSPORTATION': 'TRANSPORTATION'
@@ -46,12 +48,6 @@ CATEGORIES = {
 
 # Aliases
 ALIASES = {
-  'Austin Bouldering'           : ['Austin Bouldering Project',     CATEGORIES['CLIMBING'],       ''              ],
-  'AUSTIN BOULDERING'           : ['Austin Bouldering Project',     CATEGORIES['CLIMBING'],       ''              ],
-  'CRUX CLIMBING CENTER'        : ['Crux Climbing Center',          CATEGORIES['CLIMBING'],       ''              ],
-  'REI'                         : ['REI',                           CATEGORIES['CLIMBING'],       ''              ],
-  'BROOKLYN BOULDERS'           : ['Brooklyn Boulders',             CATEGORIES['CLIMBING'],       ''              ],
-  'URBANA BOULDERS'             : ['Urbana Boulders',               CATEGORIES['CLIMBING'],       ''              ],
   'AUSTIN INSPIRED'             : ['Austin Inspired Movement',      CATEGORIES['DANCING'],        ''              ],
   'AUSTIN SWING'                : ['Austin Swing Syndicate',        CATEGORIES['DANCING'],        ''              ],
   'FOUR ON THE'                 : ['Four On The Floor',             CATEGORIES['DANCING'],        ''              ],
@@ -68,6 +64,12 @@ ALIASES = {
   'PRIVATEINTERNETACCESS'       : ['Private Internet Access VPN',   CATEGORIES['ESSENTIALS'],     ''              ],
   'COINTRACKER'                 : ['CoinTracker',                   CATEGORIES['ESSENTIALS'],     'Taxes'         ],
   'SPRINTAX'                    : ['Sprintax',                      CATEGORIES['ESSENTIALS'],     'Taxes'         ],
+  'Austin Bouldering'           : ['Austin Bouldering Project',     CATEGORIES['FITNESS'],        'Climbing'      ],
+  'AUSTIN BOULDERING'           : ['Austin Bouldering Project',     CATEGORIES['FITNESS'],        'Climbing'      ],
+  'CRUX CLIMBING CENTER'        : ['Crux Climbing Center',          CATEGORIES['FITNESS'],        'Climbing'      ],
+  'REI'                         : ['REI',                           CATEGORIES['FITNESS'],        'Climbing'      ],
+  'BROOKLYN BOULDERS'           : ['Brooklyn Boulders',             CATEGORIES['FITNESS'],        'Climbing'      ],
+  'URBANA BOULDERS'             : ['Urbana Boulders',               CATEGORIES['FITNESS'],        'Climbing'      ],
   'STEAM'                       : ['Steam',                         CATEGORIES['GAMING'],         ''              ],
   'CRUNCHYROLL'                 : ['Crunchyroll',                   CATEGORIES['SUBSCRIPTIONS'],  ''              ],
   'MOVIEPASS'                   : ['Moviepass',                     CATEGORIES['SUBSCRIPTIONS'],  ''              ],
@@ -79,6 +81,7 @@ ALIASES = {
   'UBER'                        : ['Uber',                          CATEGORIES['TRANSPORTATION'], ''              ],
   'GROUNDSHUTTLE.COM'           : ['Groundshuttle',                 CATEGORIES['TRANSPORTATION'], ''              ],
   'MYTAXI.PH'                   : ['Mytaxi.ph',                     CATEGORIES['TRANSPORTATION'], ''              ],
+  'AMTRAK'                      : ['Amtrak',                        CATEGORIES['TRANSPORTATION'], ''              ],
   'AMAZON.COM'                  : ['Amazon',                        CATEGORIES['AMAZON'],         ''              ],
   'AMZN MKTP'                   : ['Amazon',                        CATEGORIES['AMAZON'],         ''              ],
   'AMAZON MKTPLACE'             : ['Amazon',                        CATEGORIES['AMAZON'],         ''              ],
@@ -90,6 +93,7 @@ ALIASES = {
   'DELTA AIR LINES'             : ['Delta Airlines',                CATEGORIES['AIRLINES'],       ''              ],
   'EMIRATES'                    : ['Emirates',                      CATEGORIES['AIRLINES'],       ''              ],
   'EVA AIR'                     : ['Eva Air',                       CATEGORIES['AIRLINES'],       ''              ],
+  'FRONTIER AIRLINES'           : ['Frontier Airlines',             CATEGORIES['AIRLINES'],       ''              ],
   'Pakistan Air'                : ['Pakistan Internation Airlines', CATEGORIES['AIRLINES'],       ''              ],
   'Qatar Airways'               : ['Qatar Airways',                 CATEGORIES['AIRLINES'],       ''              ],
   'Southwest Airlines'          : ['Southwest Airlines',            CATEGORIES['AIRLINES'],       ''              ],
@@ -108,6 +112,7 @@ ALIASES = {
   'COUNTY MARKET'               : ['County Market',                 CATEGORIES['GROCERIES'],      ''              ],
   'ANYDAY GROCERY'              : ['Anyday Grocery',                CATEGORIES['GROCERIES'],      ''              ],
   'THE AUSTINITE MARK'          : ['The Austinite Market',          CATEGORIES['GROCERIES'],      ''              ],
+  'LAMAR PLAZA'                 : ['Lamar Plaza Drug Store',        CATEGORIES['GROCERIES'],      ''              ],
   'AIRBNB'                      : ['Airbnb',                        CATEGORIES['HOTELS'],         ''              ],
   'UPS'                         : ['UPS',                           CATEGORIES['MAIL'],           ''              ],
   'USPS'                        : ['USPS',                          CATEGORIES['MAIL'],           ''              ],
@@ -117,6 +122,7 @@ ALIASES = {
   'FINLEY\'S'                   : ['Finley\'s',                     CATEGORIES['HAIRCUTS'],       ''              ],
   'Robinhood'                   : ['Robinhood',                     CATEGORIES['INVESTMENTS'],    'Stocks'        ],
   'Coinbase.Com'                : ['Coinbase',                      CATEGORIES['INVESTMENTS'],    'Cryptocurrency'],
+  'Betterment'                  : ['Betterment',                    CATEGORIES['INVESTMENTS'],    'Stocks'        ],
   'ALAMO'                       : ['Alamo Drafthouse',              CATEGORIES['ENTERTAINMENT'],  ''              ],
   'ZOMBIE CHARGE'               : ['Zombie Charge',                 CATEGORIES['ENTERTAINMENT'],  ''              ],
   'SILENT DISCO'                : ['Silent Disco',                  CATEGORIES['ENTERTAINMENT'],  ''              ],
@@ -127,7 +133,7 @@ ALIASES = {
   'Retailmenot, Inc'            : ['RMN Reimbursements',            CATEGORIES['INCOME'],         ''              ],
   'Retailmenot Inc Direct Dep'  : ['Salary',                        CATEGORIES['INCOME'],         ''              ],
   'CHIPOTLE'                    : ['Chipotle',                      CATEGORIES['RESTAURANTS'],    ''              ],
-  'TORCHYS TACOS'               : ['Salary',                        CATEGORIES['RESTAURANTS'],    ''              ],
+  'TORCHYS TACOS'               : ['Torchy\'s Tacos',               CATEGORIES['RESTAURANTS'],    ''              ],
   'SNOOZE'                      : ['Snooze: An AM Eatery',          CATEGORIES['RESTAURANTS'],    ''              ],
   'DONFOODTRUCK'                : ['Don\'s Japanese Kitchen',       CATEGORIES['RESTAURANTS'],    ''              ],
   'RAMEN TATSU-YA'              : ['Ramen Tatsu Ya',                CATEGORIES['RESTAURANTS'],    ''              ],
@@ -165,7 +171,10 @@ ALIASES = {
   'HOP DODDY'                   : ['Hopdoddy\'s',                   CATEGORIES['RESTAURANTS'],    ''              ],
   'NI-KOME'                     : ['Ni-Kome Sushi',                 CATEGORIES['RESTAURANTS'],    ''              ],
   'MAGNOLIA CAFE'               : ['Magnolia Cafe',                 CATEGORIES['RESTAURANTS'],    ''              ],
-  'GOURDOUGH\'S'                : ['Gourdough\'s',                  CATEGORIES['RESTAURANTS'],    ''              ]
+  'GOURDOUGH\'S'                : ['Gourdough\'s',                  CATEGORIES['RESTAURANTS'],    ''              ],
+  'LORO'                        : ['Loro',                          CATEGORIES['RESTAURANTS'],    ''              ],
+  'BANGERS SAUSAGE'             : ['Banger\'s Sausage House',       CATEGORIES['RESTAURANTS'],    ''              ],
+  'KERBEY LANE'                 : ['Kerbey Lane Cafe',              CATEGORIES['RESTAURANTS'],    ''              ]
 }
 
 # Drop Labels
@@ -458,3 +467,50 @@ if __name__ == '__main__':
   else:
     with open('data.json', 'w') as f:
       f.write(encrypt(transactions_to_json(args.sort_key)))
+
+  # summaries = defaultdict(lambda: defaultdict(lambda: defaultdict(int)))
+
+  # for t in TRANSACTIONS:
+  #   date = t.date.strftime('%m/%d/%Y')
+  #   mm, dd, yyyy = date.split('/')
+
+  #   if t.category == 'INCOME':
+  #     summaries[yyyy][mm]['income'] += t.amount
+  #   elif t.category == 'INVESTMENTS':
+  #     summaries[yyyy][mm]['investments'] += t.amount
+  #   else:
+  #     summaries[yyyy][mm]['expenses'] += t.amount
+
+  #     if t.category == 'GIFTS':
+  #       summaries[yyyy][mm]['gifts'] += t.amount
+  #     elif t.category == 'LOANS':
+  #       summaries[yyyy][mm]['loans'] += t.amount
+  #     elif t.category == 'CHARITY':
+  #       summaries[yyyy][mm]['charity'] += t.amount
+
+  # total_savings = 0
+  # total_loans = 0
+  # total_gifts = 0
+  # total_charity = 0
+  # total_investments = 0
+
+  # for yyyy, months in sorted(summaries.items()):
+  #   for mm, data in sorted(months.items()):
+  #     data['savings'] = data['income'] + data['expenses']
+
+  #     total_savings += data['savings']
+  #     total_loans += data['loans']
+  #     total_gifts += data['gifts']
+  #     total_charity += data['charity']
+  #     total_investments += data['investments']
+
+  #     data['total_savings'] = total_savings
+  #     data['total_loans'] = total_loans
+  #     data['total_gifts'] = total_gifts
+  #     data['total_charity'] = total_charity
+  #     data['total_investments'] = total_investments
+
+  # for year, months in sorted(summaries.items()):
+  #   print(year)
+  #   for month, data in sorted(months.items()):
+  #     print(month, data)

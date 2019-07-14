@@ -13,11 +13,12 @@ export const classNames = {
   dataRowAmount: 'data_element_amount',
   typeAirline: 'type_airline',
   typeAmazon: 'type_amazon',
+  typeApparel: 'type_apparel',
   typeCharity: 'type_charity',
-  typeClimbing: 'type_climbing',
   typeDancing: 'type_dancing',
   typeEntertainment: 'type_entertainment',
   typeEssential: 'type_essential',
+  typeFitness: 'type_fitness',
   typeGaming: 'type_gaming',
   typeGifts: 'type_gifts',
   typeGroceries: 'type_groceries',
@@ -27,7 +28,9 @@ export const classNames = {
   typeInvestments: 'type_investments',
   typeLoans: 'type_loans',
   typeMail: 'type_mail',
+  typeMedical: 'type_medical',
   typeMisc: 'type_misc',
+  typeOneTimeSpending: 'type_one_time_spending',
   typeRestaurants: 'type_restaurants',
   typeSubscriptions: 'type_subscriptions',
   typeTransportation: 'type_transportation',
@@ -44,17 +47,18 @@ export const classNames = {
   search: 'search'
 };
 
-export const categoryNames = ['AIRLINES', 'AMAZON', 'CHARITY', 'CLIMBING', 'DANCING', 'ENTERTAINMENT', 'ESSENTIALS', 'GAMING', 'GIFTS', 'GROCERIES', 'HAIRCUTS', 'HOTELS', 'INCOME', 'INVESTMENTS', 'LOANS', 'MAIL', 'MISC', 'RESTAURANTS', 'SUBSCRIPTIONS', 'TRANSPORTATION'];
+export const categoryNames = ['AIRLINES', 'AMAZON', 'APPAREL', 'CHARITY', 'DANCING', 'ENTERTAINMENT', 'ESSENTIALS', 'FITNESS', 'GAMING', 'GIFTS', 'GROCERIES', 'HAIRCUTS', 'HOTELS', 'INCOME', 'INVESTMENTS', 'LOANS', 'MAIL', 'MEDICAL', 'MISC', 'ONE_TIME_SPENDING', 'RESTAURANTS', 'SUBSCRIPTIONS', 'TRANSPORTATION'];
 
 export const categoryToClassName = (category) => {
   switch (category) {
     case 'AIRLINES': return classNames.typeAirline;
     case 'AMAZON': return classNames.typeAmazon;
+    case 'APPAREL': return classNames.typeApparel;
     case 'CHARITY': return classNames.typeCharity;
-    case 'CLIMBING': return classNames.typeClimbing;
     case 'DANCING': return classNames.typeDancing;
     case 'ENTERTAINMENT': return classNames.typeEntertainment;
     case 'ESSENTIALS': return classNames.typeEssential;
+    case 'FITNESS': return classNames.typeFitness;
     case 'GAMING': return classNames.typeGaming;
     case 'GIFTS': return classNames.typeGifts;
     case 'GROCERIES': return classNames.typeGroceries;
@@ -64,7 +68,9 @@ export const categoryToClassName = (category) => {
     case 'INVESTMENTS': return classNames.typeInvestments;
     case 'LOANS': return classNames.typeLoans;
     case 'MAIL': return classNames.typeMail;
+    case 'MEDICAL': return classNames.typeMedical;
     case 'MISC': return classNames.typeMisc;
+    case 'ONE_TIME_SPENDING': return classNames.typeOneTimeSpending;
     case 'RESTAURANTS': return classNames.typeRestaurants;
     case 'SUBSCRIPTIONS': return classNames.typeSubscriptions;
     case 'TRANSPORTATION': return classNames.typeTransportation;
@@ -103,3 +109,15 @@ export const numDaysInMonth = (year, month) => new Date(year, month + 1, 0).getD
 export const calcStartDate = (year, month) => Date.parse(`${year}-${(month + 1).toString().length === 1 ? '0' + (month + 1).toString() : (month + 1).toString()}-01`);
 
 export const calcEndDate = (year, month) => Date.parse(`${year}-${(month + 1).toString().length === 1 ? '0' + (month + 1).toString() : (month + 1).toString()}-${numDaysInMonth(year, month)}`);
+
+export const chunk = (arr, len) => {
+  const chunks = [];
+  const n = arr.length;
+  let i = 0;
+
+  while (i < n) {
+    chunks.push(arr.slice(i, i += len));
+  }
+
+  return chunks;
+};
