@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import Transaction from './components/Transaction';
 import Sidebar from './components/Sidebar';
-import { calcStartDate, calcEndDate, toDate, toDateString, categoryNames } from '../../../public/base';
+import { calcStartDate, calcEndDate, toDate } from '../../../public/base';
 import '@vaadin/vaadin-date-picker/vaadin-date-picker';
 import '../css/app.css';
 import Search from './components/Search';
+import AddTransaction from './components/AddTransaction';
 
 export default class TransactionView extends Component {
   state = {
-    data: null,
+    data: [],
     modifiedIds: new Set(),
     selected: {
       month: new Date().getMonth(),
@@ -114,69 +115,7 @@ export default class TransactionView extends Component {
     }
   }
 
-  addTransactionHandler = () => {
-    this.setState({
-      showAddTransactionModal: true
-    });
-  }
-
-  addTransactionButtonHandler = () => {
-    const date = toDateString(document.getElementById('add_transaction_date').value);
-    const tag = document.getElementById('add_transaction_tag').value;
-    const category = document.getElementById('add_transaction_category').value;
-    const description = document.getElementById('add_transaction_description').value;
-    const amount = parseFloat(parseFloat(document.getElementById('add_transaction_amount').value).toFixed(2));
-    const isExpense = document.getElementById('add_transaction_is_expense').value;
-    let error = false;
-
-    if (date === 'null') {
-      document.getElementById('add_transaction_date_td').classList.add('add-transaction-table-error');
-      error = true;
-    } else {
-      document.getElementById('add_transaction_date_td').classList.remove('add-transaction-table-error');
-    }
-    if (description === '') {
-      document.getElementById('add_transaction_description').classList.add('add-transaction-table-error');
-      error = true;
-    } else {
-      document.getElementById('add_transaction_description').classList.remove('add-transaction-table-error');
-    }
-    if (isNaN(amount) || amount <= 0) {
-      document.getElementById('add_transaction_amount').classList.add('add-transaction-table-error');
-      error = true;
-    } else {
-      document.getElementById('add_transaction_amount').classList.remove('add-transaction-table-error');
-    }
-
-    if (!error) {
-      const { data, } = this.state;
-
-      const amountWithSign = isExpense === 'True' ? amount * -1.00 : amount;
-
-      const newTransaction = {
-        date,
-        tag,
-        category,
-        description,
-        amount: amountWithSign
-      };
-
-      fetch('/api/create', {
-        headers: { 'Content-Type': 'application/json' },
-        method: 'POST',
-        body: JSON.stringify({ newTransaction })
-      })
-        .then(res => res.json())
-        .then((res) => {
-          data.push(res.newTransaction);
-
-          this.setState({
-            data,
-            showAddTransactionModal: false
-          });
-        });
-    }
-  }
+  updateStateCallback = stateMap => this.setState(stateMap);
 
   deleteClickHandler = (id) => {
     const { data, } = this.state;
@@ -197,16 +136,8 @@ export default class TransactionView extends Component {
     }
   }
 
-  editClickHandler = () => {
-    const { edit, } = this.state;
-
-    this.setState({
-      edit: !edit
-    });
-  }
-
   saveClickHandler = () => {
-    const { dirty, data, modifiedIds } = this.state;
+    const { data, modifiedIds } = this.state;
 
     const modifiedData = Array.from(modifiedIds).map(id => data[data.findIndex(el => el.id === id)]);
     modifiedIds.clear();
@@ -251,67 +182,6 @@ export default class TransactionView extends Component {
     });
   }
 
-  renderCategoryOptions = () => categoryNames.map(category => <option value={category} key={category}>{category}</option>);
-
-  renderModal = () => {
-    const { showAddTransactionModal, } = this.state;
-
-    if (showAddTransactionModal) {
-      return (
-        <div id="myModal" className="modal">
-          <div className="modal-content">
-            <div className="modal-header">
-              <span className="close" onClick={() => this.setState({ showAddTransactionModal: false })}>&times;</span>
-              <h2>Add Transaction</h2>
-            </div>
-            <div className="modal-body">
-              <table className="add-transaction-table">
-                <tbody>
-                  <tr>
-                    <th>Date</th>
-                    <td id="add_transaction_date_td"><vaadin-date-picker placeholder="Pick a date" id="add_transaction_date" /></td>
-                  </tr>
-                  <tr>
-                    <th>Tag</th>
-                    <td><input placeholder="tag" id="add_transaction_tag" /></td>
-                  </tr>
-                  <tr>
-                    <th>Category</th>
-                    <td>
-                      <select defaultValue="MISC" id="add_transaction_category">
-                        {this.renderCategoryOptions()}
-                      </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>Description</th>
-                    <td><input placeholder="description" id="add_transaction_description" /></td>
-                  </tr>
-                  <tr>
-                    <th>Amount</th>
-                    <td><input type="number" placeholder="0.00" id="add_transaction_amount" /></td>
-                  </tr>
-                  <tr>
-                    <th>Is Expense?</th>
-                    <td>
-                      <select defaultValue="True" id="add_transaction_is_expense">
-                        <option value="True" key="True">True</option>
-                        <option value="False" key="False">False</option>
-                      </select>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="button button-create" id="add_transaction_button" onClick={this.addTransactionButtonHandler}>Create</button>
-            </div>
-          </div>
-        </div>
-      );
-    }
-  };
-
   renderTransactions = (fetchInProgress, transactions) => {
     const { edit, } = this.state;
 
@@ -336,7 +206,7 @@ export default class TransactionView extends Component {
 
   render() {
     const {
-      data, selected, sort, fetchInProgress, searchDates, edit
+      data, selected, sort, fetchInProgress, searchDates, edit, showAddTransactionModal
     } = this.state;
 
     return (
@@ -346,13 +216,13 @@ export default class TransactionView extends Component {
             <Search searchDates={searchDates} updateSearchDates={this.updateSearchDates} updateStateFromSearch={this.updateStateFromSearch} />
           </div>
           <div className="menu-buttons">
-            <i className="fas fa-plus menu-button" onClick={this.addTransactionHandler} />
-            <i className={`far fa-edit menu-button ${edit ? 'edit' : ''}`} onClick={this.editClickHandler} />
+            <i className="fas fa-plus menu-button" onClick={() => this.updateStateCallback({ showAddTransactionModal: true })} />
+            <i className={`far fa-edit menu-button ${edit ? 'edit' : ''}`} onClick={() => this.updateStateCallback({ edit: !edit })} />
             <i className="far fa-save menu-button" onClick={this.saveClickHandler} />
           </div>
         </div>
         <div className="body">
-          {this.renderModal()}
+          <AddTransaction showAddTransactionModal={showAddTransactionModal} data={data} updateStateCallback={this.updateStateCallback} />
           <div className="sidebar">
             <Sidebar selected={selected} sort={sort} updateState={this.updateState} />
           </div>
