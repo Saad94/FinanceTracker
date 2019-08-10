@@ -53,6 +53,7 @@ ALIASES = {
   'FOUR ON THE'                 : ['Four On The Floor',             CATEGORIES['DANCING'],        ''              ],
   'GO DANCE'                    : ['Go Dance',                      CATEGORIES['DANCING'],        ''              ],
   'AUSTIN LINDY'                : ['Austin Lindy Exchange',         CATEGORIES['DANCING'],        ''              ],
+  'PURA AUSTIN'                 : ['Austin Inspired Movement',      CATEGORIES['DANCING'],        ''              ],
   'Blackrock'                   : ['Rent',                          CATEGORIES['ESSENTIALS'],     ''              ],
   'City of Austin'              : ['City of Austin Utilities',      CATEGORIES['ESSENTIALS'],     ''              ],
   'Amerenil'                    : ['Ameren Illinois',               CATEGORIES['ESSENTIALS'],     ''              ],
