@@ -98,16 +98,16 @@ body {
   cursor: default;
 }
 .data_header_date, .data_element_date {
-  width: 130px;
+  width: 120px;
   text-align: center;
 }
 .data_header_tag, .data_element_tag {
-  width: 260px;
+  width: 310px;
   font-weight: bold;
   text-align: center;
 }
 .data_header_category, .data_element_category {
-  width: 220px;
+  width: 200px;
   font-weight: bold;
   text-align: center;
 }
