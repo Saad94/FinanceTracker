@@ -78,6 +78,8 @@ const calculateSummaries = () => {
       totals['Total Loans'] += data['LOANS'];
       totals['Total Gifts'] += data['GIFTS'];
       totals['Total Charity'] += data['CHARITY'];
+
+      data['LIFETIME_SAVINGS'] = totals['Total Savings']      
     });
   });
 
@@ -86,7 +88,7 @@ const calculateSummaries = () => {
   Object.keys(summaries).sort().forEach((yyyy) => {
     Object.keys(summaries[yyyy]).sort().forEach((mm) => {
       Object.keys(summaries[yyyy][mm]).sort().forEach((key) => {
-        if (key !== 'SAVINGS') {
+        if (key !== 'SAVINGS' && key !== 'LIFETIME_SAVINGS') {
           summaries[yyyy][mm][key] = Math.abs(summaries[yyyy][mm][key]);
         }
         summaries[yyyy][mm][key] = summaries[yyyy][mm][key].toFixed(2);
@@ -170,7 +172,7 @@ export const allSummaries = () => calculateSummaries();
 
 export const trends = (req) => {
   const lookbackMonths = parseInt(req.params.lookbackMonths, 10);
-  const categories = [...categoryNames, 'EXPENSES', 'SAVINGS'];
+  const categories = [...categoryNames, 'EXPENSES', 'SAVINGS', 'LIFETIME_SAVINGS'];
   const { summaries } = calculateSummaries();
   const data = {};
   let yyyy = new Date().getFullYear();

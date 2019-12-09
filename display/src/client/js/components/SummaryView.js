@@ -8,7 +8,7 @@ export default class SummaryView extends Component {
 
   totalsTableRowOrderOne = ['Total Savings', 'Total Cash', 'Total Investments'];
   totalsTableRowOrderTwo = ['Total Loans', 'Total Gifts', 'Total Charity'];
-  summariesTableRowOrderOne = ['INCOME', 'EXPENSES', 'SAVINGS'];
+  summariesTableRowOrderOne = ['INCOME', 'EXPENSES', 'SAVINGS', 'LIFETIME_SAVINGS'];
   summariesTableRowOrderTwo = ['ESSENTIALS', 'ONE_TIME_SPENDING', 'INVESTMENTS', 'LOANS', 'GROCERIES', 'TRANSPORTATION', 'RESTAURANTS', 'FITNESS', 'DANCING', 'MEDICAL'];
   summariesTableRowOrderThree = ['ENTERTAINMENT', 'SUBSCRIPTIONS', 'AIRLINES', 'AMAZON', 'APPAREL', 'GAMING', 'HAIRCUTS', 'GIFTS', 'CHARITY', 'HOTELS', 'MAIL', 'MISC'];
   unaccountedForKeys = [...categoryNames].filter(el => ![...this.summariesTableRowOrderOne, ...this.summariesTableRowOrderTwo, ...this.summariesTableRowOrderThree].includes(el));
@@ -73,8 +73,8 @@ export default class SummaryView extends Component {
             {
               this.summariesTableRowOrderOne.map(key => (
                 <tr className="table-summaries-row-one" key={`${year}-${month}-${key}`}>
-                  <td className={key === 'SAVINGS' ? 'bold' : ''}>{key}</td>
-                  <td className={key === 'SAVINGS' ? 'bold' : ''}>{data[key]}</td>
+                  <td className={key === 'SAVINGS' || key === 'LIFETIME_SAVINGS' ? 'bold' : ''}>{key}</td>
+                  <td className={key === 'SAVINGS' || key === 'LIFETIME_SAVINGS' ? 'bold' : ''}>{data[key]}</td>
                 </tr>
               ))
             }
