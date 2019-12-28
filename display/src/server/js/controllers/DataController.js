@@ -40,7 +40,6 @@ fs.copyFile(filePath, backupFilePath, (err) => {
 
 // Load the JSON data and parse it into Transactions.
 const encryptedJson = fs.readFileSync(filePath, 'utf-8');
-console.log(encrypt(encryptedJson));
 const jsonData = JSON.parse(encrypt(encryptedJson));
 const allTransactions = jsonData.map(t => new Transaction(t.id, t.date, t.tag, t.category, t.description, t.amount));
 sort(allTransactions, 'date', 'asc');

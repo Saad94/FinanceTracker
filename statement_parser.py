@@ -62,6 +62,7 @@ ALIASES = {
   'T-MOBILE'                    : ['T-Mobile',                        CATEGORIES['ESSENTIALS'],     ''              ],
   'RENT'                        : ['Rent',                            CATEGORIES['ESSENTIALS'],     ''              ],
   'BAILEY APARTMENTS'           : ['Rent',                            CATEGORIES['ESSENTIALS'],     ''              ],
+  'Yardi Servicechg'            : ['Rent - Service Charge',           CATEGORIES['ESSENTIALS'],     ''              ],
   'PRIVATEINTERNETACCESS'       : ['Private Internet Access VPN',     CATEGORIES['ESSENTIALS'],     ''              ],
   'COINTRACKER'                 : ['CoinTracker',                     CATEGORIES['ESSENTIALS'],     'Taxes'         ],
   'SPRINTAX'                    : ['Sprintax',                        CATEGORIES['ESSENTIALS'],     'Taxes'         ],
@@ -196,8 +197,7 @@ DROPS = [
   'Venmo Cashout',
   'Venmo Payment',
   'Online Transfer From Sav',
-  'Paypal Transfer',
-  'Paypal Inst'
+  'Paypal Transfer'
 ]
 
 
