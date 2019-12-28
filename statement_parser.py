@@ -84,6 +84,7 @@ ALIASES = {
   'GROUNDSHUTTLE.COM'           : ['Groundshuttle',                   CATEGORIES['TRANSPORTATION'], ''              ],
   'MYTAXI.PH'                   : ['Mytaxi.ph',                       CATEGORIES['TRANSPORTATION'], ''              ],
   'AMTRAK'                      : ['Amtrak',                          CATEGORIES['TRANSPORTATION'], ''              ],
+  'CAREEM'                      : ['Careem',                          CATEGORIES['TRANSPORTATION'], ''              ], 
   'AMAZON.COM'                  : ['Amazon',                          CATEGORIES['AMAZON'],         ''              ],
   'AMZN MKTP'                   : ['Amazon',                          CATEGORIES['AMAZON'],         ''              ],
   'AMAZON MKTPLACE'             : ['Amazon',                          CATEGORIES['AMAZON'],         ''              ],
@@ -178,7 +179,8 @@ ALIASES = {
   'LORO'                        : ['Loro',                            CATEGORIES['RESTAURANTS'],    ''              ],
   'BANGERS SAUSAGE'             : ['Banger\'s Sausage House',         CATEGORIES['RESTAURANTS'],    ''              ],
   'KERBEY LANE'                 : ['Kerbey Lane Cafe',                CATEGORIES['RESTAURANTS'],    ''              ],
-  'JUICELAND'                   : ['Juiceland',                       CATEGORIES['RESTAURANTS'],    ''              ]
+  'JUICELAND'                   : ['Juiceland',                       CATEGORIES['RESTAURANTS'],    ''              ],
+  'SUMMER MOON'                 : ['Summer Moon Coffee',              CATEGORIES['RESTAURANTS'],    ''              ]
 }
 
 # Drop Labels
@@ -218,7 +220,7 @@ def encrypt(data):
   result = '';
 
   for i in range(0, len(data)):
-    result += chr(ord(key[i % len(key)]) ^ ord(data[i]));
+    result += chr(ord(key[i % len(key)]) ^ data[i]);
   
   return result;
 
@@ -232,9 +234,10 @@ def to_date(string):
 
 
 def load_data_file():
-  with open ('./display/src/server/data/data.json', 'r') as f:
+  with open ('./display/src/server/data/data.json', 'rb') as f:
     result = []
-    data = json.loads(encrypt(f.read()))
+    tmp = f.read()
+    data = json.loads(encrypt(tmp))
 
     for obj in data:
       result.append(Transaction(obj['date'], obj['description'], obj['amount'], obj['category'], obj['tag']))
@@ -313,6 +316,7 @@ def transactions_to_json(sort_key):
   sort_transactions_list(sort_key)
   val += print_transactions_json()
   val += '\n]'
+  val = [ord(c) for c in val]
   return val
 
 #######################################
