@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Line } from 'react-chartjs-2';
+import { Bar, Line } from 'react-chartjs-2';
 import { chunk, categoryNames } from '../../../../public/base';
 
 export default class TrendView extends Component {
   state = {
-    data: null
+    categoryBasedData: null,
+    dateBasedData: null
   };
 
   COLORS = {
@@ -36,80 +37,146 @@ export default class TrendView extends Component {
     TRANSPORTATION: '#ffc685cc',
   }
 
-  TRENDS_ORDER = ['LIFETIME_SAVINGS', 'INCOME', 'EXPENSES', 'SAVINGS', 'ESSENTIALS', 'ONE_TIME_SPENDING', 'INVESTMENTS', 'LOANS', 'GROCERIES', 'TRANSPORTATION', 'RESTAURANTS', 'FITNESS', 'DANCING', 'MEDICAL', 'ENTERTAINMENT', 'SUBSCRIPTIONS', 'AIRLINES', 'AMAZON', 'APPAREL', 'GAMING', 'HAIRCUTS', 'GIFTS', 'CHARITY', 'HOTELS', 'MAIL', 'MISC'];
-  UNACCOUNTED_FOR_KEYS = [...categoryNames].filter(el => !this.TRENDS_ORDER.includes(el));
+  TRENDS_ORDER = ['ESSENTIALS', 'ONE_TIME_SPENDING', 'INVESTMENTS', 'LOANS', 'GROCERIES', 'TRANSPORTATION', 'RESTAURANTS', 'FITNESS', 'DANCING', 'MEDICAL', 'ENTERTAINMENT', 'SUBSCRIPTIONS', 'AIRLINES', 'AMAZON', 'APPAREL', 'GAMING', 'HAIRCUTS', 'GIFTS', 'CHARITY', 'HOTELS', 'MAIL', 'MISC'];
 
   componentDidMount() {
     this.setState({ fetchInProgress: true });
-    this.TRENDS_ORDER.push(this.UNACCOUNTED_FOR_KEYS);
 
     fetch('/api/trends/20')
       .then(res => res.json())
       .then((res) => {
         this.setState({
-          data: res.data,
+          categoryBasedData: res.data,
+          fetchInProgress: false
+        });
+      });
+
+    fetch('/api/trends2/20')
+      .then(res => res.json())
+      .then((res) => {
+        this.setState({
+          dateBasedData: res.data,
           fetchInProgress: false
         });
       });
   }
 
-  renderGraphs = data => (
-    <div>
-      {
-        this.TRENDS_ORDER.map((category) => {
-          if (!(category in data)) {
-            return '';
+  renderLineGraphs = (categories) => {
+    const data = this.state.categoryBasedData;
+
+    return (
+      <div>
+        {
+          categories.map((category) => {
+            if (!(category in data)) {
+              return '';
+            }
+
+            const chartData = {
+              labels: [],
+              datasets: [
+                {
+                  label: category,
+                  backgroundColor: this.COLORS[category],
+                  pointBorderColor: '#00000055',
+                  pointBackgroundColor: '#00000055',
+                  data: []
+                }
+              ]
+            };
+
+            Object.keys(data[category]).sort().forEach((datapoint) => {
+              chartData.labels.push(datapoint);
+              chartData.datasets[0].data.push(data[category][datapoint]);
+            });
+
+            return (
+              <div className="div-graph" key={category}>
+                <Line data={chartData} width={600} height={125} />
+              </div>
+            );
+          })
+        }
+      </div>
+    );
+  };
+
+  renderBarGraphs = (categories) => {
+    const data = this.state.dateBasedData;
+    const chartData = {
+      labels: [],
+      datasets: []
+    };
+    const datasetsMap = {};
+
+    Object.keys(data).sort().forEach((key) => {
+      chartData.labels.push(key);
+      categories.map((category) => {
+        if (!(category in datasetsMap)) {
+          datasetsMap[category] = [];
+        }
+        datasetsMap[category].push(data[key][category]);
+      });
+    });
+
+    Object.keys(datasetsMap).sort().forEach((category) => {
+      chartData.datasets.push(
+        {
+          label: category,
+          backgroundColor: this.COLORS[category],
+          pointBorderColor: '#00000055',
+          pointBackgroundColor: '#00000055',
+          data: datasetsMap[category]
+        }
+      );
+    });
+
+    const options = {
+      scales: {
+        xAxes: [
+          {
+            stacked: true
           }
+        ],
+        yAxes: [
+          {
+            stacked: true
+          }
+        ]
+      },
+      barShowStroke: false
+    };
 
-          const chartData = {
-            labels: [],
-            datasets: [
-              {
-                label: category,
-                backgroundColor: this.COLORS[category],
-                pointBorderColor: '#00000055',
-                pointBackgroundColor: '#00000055',
-                data: []
-              }
-            ]
-          };
+    return <Bar data={chartData} options={options} width={600} height={125} />;
+  };
 
-          Object.keys(data[category]).sort().forEach((datapoint) => {
-            chartData.labels.push(datapoint);
-            chartData.datasets[0].data.push(data[category][datapoint]);
-          });
-
-          return (
-            <div className="div-graph" key={category}>
-              <Line data={chartData} width={600} height={125} />
-            </div>
-          );
-        })
-      }
-    </div>
-  );
-
-  renderData = () => {
-    const { data, fetchInProgress } = this.state;
+  renderGraphData = () => {
+    const { categoryBasedData, dateBasedData, fetchInProgress } = this.state;
 
     if (fetchInProgress) {
       return <div className="lds-hourglass" />;
     }
-    if (data === null) {
+    if (categoryBasedData === null || dateBasedData === null) {
       return [];
     }
 
     return (
       <div>
-        {this.renderGraphs(data)}
+        {this.renderLineGraphs(['LIFETIME_SAVINGS'])}
+        {this.renderBarGraphs(['EXPENSES', 'SAVINGS'])}
+        {
+          this.TRENDS_ORDER.map((category) => {
+            return this.renderBarGraphs([category])
+          })
+        }
       </div>
     );
-  }
+  };
 
   render() {
     return (
       <div>
-        {this.renderData()}
+        {this.renderGraphData()}
       </div>
     );
   }

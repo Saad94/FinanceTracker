@@ -40,4 +40,8 @@ router.get('/trends/:lookbackMonths', (req, res) => res.send({
   data: DataController.trends(req)
 }));
 
+router.get('/trends2/:lookbackMonths', (req, res) => res.send({
+  data: DataController.trends2(req)
+}));
+
 export default router;

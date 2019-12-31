@@ -200,3 +200,34 @@ export const trends = (req) => {
 
   return data;
 };
+
+export const trends2 = (req) => {
+  const lookbackMonths = parseInt(req.params.lookbackMonths, 10);
+  const categories = [...categoryNames, 'EXPENSES', 'SAVINGS'];
+  const { summaries } = calculateSummaries();
+  const data = {};
+  let yyyy = new Date().getFullYear();
+  let mm = new Date().getMonth();
+  let monthsProcessed = 0;
+
+  while (monthsProcessed !== lookbackMonths) {
+    const yyyyKey = yyyy.toString(10);
+    const mmKey = monthNumToString(mm);
+    const key = `${yyyyKey}-${mmKey}`;
+    data[key] = {}
+
+    categories.forEach((category) => {
+      const amount = category in summaries[yyyyKey][mmKey] ? parseFloat(summaries[yyyyKey][mmKey][category]) : 0;
+      data[key][category] = amount;
+    });
+
+    mm -= 1;
+    if (mm < 0) {
+      mm = 11;
+      yyyy--;
+    }
+    monthsProcessed++;
+  }
+
+  return data;
+};
