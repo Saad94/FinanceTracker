@@ -12,22 +12,22 @@ const sortDate = (a, b, order) => sortNum(Date.parse(a.date), Date.parse(b.date)
 
 const sortTag = (a, b, order) => {
   const s = sortString(a.tag, b.tag) * order;
-  return s === 0 ? sortDate(a, b) : s;
+  return s === 0 ? sortDate(a, b, 1) : s;
 };
 
 const sortCategory = (a, b, order) => {
   const s = sortString(a.category, b.category) * order;
-  return s === 0 ? sortDate(a, b) : s;
+  return s === 0 ? sortDate(a, b, 1) : s;
 };
 
 const sortDescription = (a, b, order) => {
   const s = sortString(a.description, b.description) * order;
-  return s === 0 ? sortDate(a, b) : s;
+  return s === 0 ? sortDate(a, b, 1) : s;
 };
 
 const sortAmount = (a, b, order) => {
   const s = sortNum(a.amount, b.amount) * order;
-  return s === 0 ? sortDate(a, b) : s;
+  return s === 0 ? sortDate(a, b, 1) : s;
 };
 
 const sort = (transactions, key, order) => {
