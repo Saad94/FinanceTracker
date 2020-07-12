@@ -1,5 +1,6 @@
 import Transaction from '../models/Transaction';
 import sort from '../sort';
+import { categoryNames, monthNumToString } from '../../../../public/base';
 
 require('dotenv').config();
 
@@ -59,7 +60,7 @@ const calculateSummaries = () => {
   allTransactions.forEach((t) => {
     const [mm, dd, yyyy] = t.date.split('/');
 
-    if (t.category !== 'INCOME' && t.category !== 'INVESTMENTS') {
+    if (t.category !== 'INCOME' && t.category !== 'INVESTMENTS' && t.amount < 0) {
       summaries[yyyy][mm]['EXPENSES'] += t.amount;
     }
 
@@ -77,6 +78,8 @@ const calculateSummaries = () => {
       totals['Total Loans'] += data['LOANS'];
       totals['Total Gifts'] += data['GIFTS'];
       totals['Total Charity'] += data['CHARITY'];
+
+      data['LIFETIME_SAVINGS'] = totals['Total Savings']      
     });
   });
 
@@ -85,9 +88,9 @@ const calculateSummaries = () => {
   Object.keys(summaries).sort().forEach((yyyy) => {
     Object.keys(summaries[yyyy]).sort().forEach((mm) => {
       Object.keys(summaries[yyyy][mm]).sort().forEach((key) => {
-        if (key !== 'SAVINGS') {
-          summaries[yyyy][mm][key] = Math.abs(summaries[yyyy][mm][key]);
-        }
+        // if (key !== 'SAVINGS' && key !== 'LIFETIME_SAVINGS') {
+        //   summaries[yyyy][mm][key] = Math.abs(summaries[yyyy][mm][key]);
+        // }
         summaries[yyyy][mm][key] = summaries[yyyy][mm][key].toFixed(2);
       });
     });
@@ -166,3 +169,67 @@ export const deleteTransaction = (req) => {
 };
 
 export const allSummaries = () => calculateSummaries();
+
+export const trends = (req) => {
+  const lookbackMonths = parseInt(req.params.lookbackMonths, 10);
+  const categories = [...categoryNames, 'EXPENSES', 'SAVINGS', 'LIFETIME_SAVINGS'];
+  const { summaries } = calculateSummaries();
+  const data = {};
+  let yyyy = new Date().getFullYear();
+  let mm = new Date().getMonth();
+  let monthsProcessed = 0;
+  categories.forEach(category => data[category] = {});
+
+  while (monthsProcessed !== lookbackMonths) {
+    const yyyyKey = yyyy.toString(10);
+    const mmKey = monthNumToString(mm);
+    const key = `${yyyyKey}-${mmKey}`;
+
+    categories.forEach((category) => {
+      const amount = category in summaries[yyyyKey][mmKey] ? parseFloat(summaries[yyyyKey][mmKey][category]) : 0;
+      data[category][key] = amount;
+    });
+
+    mm -= 1;
+    if (mm < 0) {
+      mm = 11;
+      yyyy--;
+    }
+    monthsProcessed++;
+  }
+
+  return data;
+};
+
+export const trends2 = (req) => {
+  const lookbackMonths = parseInt(req.params.lookbackMonths, 10);
+  const categories = [...categoryNames, 'EXPENSES', 'SAVINGS'];
+  const { summaries } = calculateSummaries();
+  const data = {};
+  let yyyy = new Date().getFullYear();
+  let mm = new Date().getMonth();
+  let monthsProcessed = 0;
+
+  while (monthsProcessed !== lookbackMonths) {
+    const yyyyKey = yyyy.toString(10);
+    const mmKey = monthNumToString(mm);
+    const key = `${yyyyKey}-${mmKey}`;
+    data[key] = {}
+
+    categories.forEach((category) => {
+      const amount = category in summaries[yyyyKey][mmKey] ? parseFloat(summaries[yyyyKey][mmKey][category]) : 0;
+
+      const amountToDisplay = category === 'SAVINGS' ? amount : amount * -1;
+      data[key][category] = amountToDisplay;
+    });
+
+    mm -= 1;
+    if (mm < 0) {
+      mm = 11;
+      yyyy--;
+    }
+    monthsProcessed++;
+  }
+
+  return data;
+};

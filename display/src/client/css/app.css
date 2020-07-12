@@ -18,10 +18,13 @@ body {
   height: 100%;
 }
 
-.div-totals, .div-summaries {
+.div-totals, .div-summaries, .div-graph {
   display: flex;
 }
 .div-summaries {
+  margin: 50px;
+}
+.div-graph {
   margin: 50px;
 }
 .table-totals {
@@ -95,16 +98,16 @@ body {
   cursor: default;
 }
 .data_header_date, .data_element_date {
-  width: 130px;
+  width: 120px;
   text-align: center;
 }
 .data_header_tag, .data_element_tag {
-  width: 260px;
+  width: 310px;
   font-weight: bold;
   text-align: center;
 }
 .data_header_category, .data_element_category {
-  width: 220px;
+  width: 200px;
   font-weight: bold;
   text-align: center;
 }
@@ -140,7 +143,7 @@ body {
 .type_charity           {background-color: #3fecc1;}
 .type_dancing           {background-color: #d8a1f8;}
 .type_entertainment     {background-color: #c7fdff;}
-.type_essential         {background-color: #80aed3;}
+.type_essentials        {background-color: #80aed3;}
 .type_fitness           {background-color: #caabab;}
 .type_gaming            {background-color: #c7fdff;}
 .type_gifts             {background-color: #63c0f7;}
@@ -321,7 +324,7 @@ body {
 }
 .button-viewSelect {
   border-radius:0px;
-  width: 50%;
+  flex: 1;
   height: 40px;
   line-height: 40px;
   cursor: pointer;
@@ -337,8 +340,9 @@ body {
 .viewSelect {
   position: absolute;
   top: 0;
-  left: 35%;
-  width:30%;
+  left: 32%;
+  width: 36%;
+  display: flex;
 }
 
 .lds-hourglass {

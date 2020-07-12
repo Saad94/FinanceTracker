@@ -17,7 +17,7 @@ export const classNames = {
   typeCharity: 'type_charity',
   typeDancing: 'type_dancing',
   typeEntertainment: 'type_entertainment',
-  typeEssential: 'type_essential',
+  typeEssentials: 'type_essentials',
   typeFitness: 'type_fitness',
   typeGaming: 'type_gaming',
   typeGifts: 'type_gifts',
@@ -57,7 +57,7 @@ export const categoryToClassName = (category) => {
     case 'CHARITY': return classNames.typeCharity;
     case 'DANCING': return classNames.typeDancing;
     case 'ENTERTAINMENT': return classNames.typeEntertainment;
-    case 'ESSENTIALS': return classNames.typeEssential;
+    case 'ESSENTIALS': return classNames.typeEssentials;
     case 'FITNESS': return classNames.typeFitness;
     case 'GAMING': return classNames.typeGaming;
     case 'GIFTS': return classNames.typeGifts;
@@ -78,21 +78,6 @@ export const categoryToClassName = (category) => {
   }
 };
 
-export const elements = {
-  allTransactions: document.querySelector(`.${classNames.allTransactions}`),
-  allTransactionsHeader: document.querySelector(`.${classNames.dataHeader}`),
-  root: document.querySelector(`.${classNames.root}`),
-  startDate: document.querySelector(`#${classNames.startDate}`),
-  endDate: document.querySelector(`#${classNames.endDate}`),
-  leftArrow: document.querySelector(`.${classNames.leftArrow}`),
-  rightArrow: document.querySelector(`.${classNames.rightArrow}`),
-  sidebar: document.querySelector(`.${classNames.sidebar}`),
-  year: document.querySelector(`.${classNames.year}`),
-  yearValue: document.querySelector(`.${classNames.yearValue}`),
-  allMonths: Array.from(document.querySelectorAll(`.${classNames.month}`)),
-  search: document.querySelector(`.${classNames.search}`)
-};
-
 export const toDateString = (dateStr) => {
   if (dateStr === '') {
     return 'null';
@@ -106,9 +91,11 @@ export const toDate = dateStr => dateStr === '' ? 'null' : Date.parse(dateStr);
 
 export const numDaysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
 
-export const calcStartDate = (year, month) => Date.parse(`${year}-${(month + 1).toString().length === 1 ? '0' + (month + 1).toString() : (month + 1).toString()}-01`);
+export const monthNumToString = month => (month + 1).toString().length === 1 ? `0${(month + 1).toString()}` : (month + 1).toString();
 
-export const calcEndDate = (year, month) => Date.parse(`${year}-${(month + 1).toString().length === 1 ? '0' + (month + 1).toString() : (month + 1).toString()}-${numDaysInMonth(year, month)}`);
+export const calcStartDate = (year, month) => Date.parse(`${year}-${monthNumToString(month)}-01`);
+
+export const calcEndDate = (year, month) => Date.parse(`${year}-${monthNumToString(month)}-${numDaysInMonth(year, month)}`);
 
 export const chunk = (arr, len) => {
   const chunks = [];
