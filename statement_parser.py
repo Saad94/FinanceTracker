@@ -55,6 +55,7 @@ ALIASES = {
   'AUSTIN LINDY'                : ['Austin Lindy Exchange',           CATEGORIES['DANCING'],        ''              ],
   'PURA AUSTIN'                 : ['Austin Inspired Movement',        CATEGORIES['DANCING'],        ''              ],
   'Blackrock'                   : ['Rent',                            CATEGORIES['ESSENTIALS'],     ''              ],
+  'Gibson Flats'                : ['Rent',                            CATEGORIES['ESSENTIALS'],     ''              ],
   'City of Austin'              : ['City of Austin Utilities',        CATEGORIES['ESSENTIALS'],     ''              ],
   'Amerenil'                    : ['Ameren Illinois',                 CATEGORIES['ESSENTIALS'],     ''              ],
   'GOOGLE'                      : ['Google Fibre',                    CATEGORIES['ESSENTIALS'],     ''              ],
@@ -62,7 +63,6 @@ ALIASES = {
   'T-MOBILE'                    : ['T-Mobile',                        CATEGORIES['ESSENTIALS'],     ''              ],
   'RENT'                        : ['Rent',                            CATEGORIES['ESSENTIALS'],     ''              ],
   'BAILEY APARTMENTS'           : ['Rent',                            CATEGORIES['ESSENTIALS'],     ''              ],
-  'Yardi Servicechg'            : ['Rent - Service Charge',           CATEGORIES['ESSENTIALS'],     ''              ],
   'PRIVATEINTERNETACCESS'       : ['Private Internet Access VPN',     CATEGORIES['ESSENTIALS'],     ''              ],
   'COINTRACKER'                 : ['CoinTracker',                     CATEGORIES['ESSENTIALS'],     'Taxes'         ],
   'SPRINTAX'                    : ['Sprintax',                        CATEGORIES['ESSENTIALS'],     'Taxes'         ],
@@ -75,6 +75,7 @@ ALIASES = {
   'AUSTIN TABLE TENNIS'         : ['Austin Table Tennis Club',        CATEGORIES['FITNESS'],        ''              ],
   'STEAM'                       : ['Steam',                           CATEGORIES['GAMING'],         ''              ],
   'CRUNCHYROLL'                 : ['Crunchyroll',                     CATEGORIES['SUBSCRIPTIONS'],  ''              ],
+  'Crunchyroll'                 : ['Crunchyroll',                     CATEGORIES['SUBSCRIPTIONS'],  ''              ],
   'MOVIEPASS'                   : ['Moviepass',                       CATEGORIES['SUBSCRIPTIONS'],  ''              ],
   'Netflix'                     : ['Netflix',                         CATEGORIES['SUBSCRIPTIONS'],  ''              ],
   'SPOTIFY'                     : ['Spotify',                         CATEGORIES['SUBSCRIPTIONS'],  ''              ],
@@ -85,7 +86,6 @@ ALIASES = {
   'GROUNDSHUTTLE.COM'           : ['Groundshuttle',                   CATEGORIES['TRANSPORTATION'], ''              ],
   'MYTAXI.PH'                   : ['Mytaxi.ph',                       CATEGORIES['TRANSPORTATION'], ''              ],
   'AMTRAK'                      : ['Amtrak',                          CATEGORIES['TRANSPORTATION'], ''              ],
-  'CAREEM'                      : ['Careem',                          CATEGORIES['TRANSPORTATION'], ''              ], 
   'AMAZON.COM'                  : ['Amazon',                          CATEGORIES['AMAZON'],         ''              ],
   'AMZN MKTP'                   : ['Amazon',                          CATEGORIES['AMAZON'],         ''              ],
   'AMAZON MKTPLACE'             : ['Amazon',                          CATEGORIES['AMAZON'],         ''              ],
@@ -181,7 +181,7 @@ ALIASES = {
   'BANGERS SAUSAGE'             : ['Banger\'s Sausage House',         CATEGORIES['RESTAURANTS'],    ''              ],
   'KERBEY LANE'                 : ['Kerbey Lane Cafe',                CATEGORIES['RESTAURANTS'],    ''              ],
   'JUICELAND'                   : ['Juiceland',                       CATEGORIES['RESTAURANTS'],    ''              ],
-  'SUMMER MOON'                 : ['Summer Moon Coffee',              CATEGORIES['RESTAURANTS'],    ''              ]
+  'DOMINO\'S'                   : ['Domino\'s Pizza',                 CATEGORIES['RESTAURANTS'],    ''              ]
 }
 
 # Drop Labels
@@ -197,7 +197,8 @@ DROPS = [
   'Venmo Cashout',
   'Venmo Payment',
   'Online Transfer From Sav',
-  'Paypal Transfer'
+  'Paypal Transfer',
+  'Paypal Inst'
 ]
 
 
@@ -220,7 +221,7 @@ def encrypt(data):
   result = '';
 
   for i in range(0, len(data)):
-    result += chr(ord(key[i % len(key)]) ^ data[i]);
+    result += chr(ord(key[i % len(key)]) ^ ord(data[i]));
   
   return result;
 
@@ -234,10 +235,9 @@ def to_date(string):
 
 
 def load_data_file():
-  with open ('./display/src/server/data/data.json', 'rb') as f:
+  with open ('./display/src/server/data/data.json', 'r') as f:
     result = []
-    tmp = f.read()
-    data = json.loads(encrypt(tmp))
+    data = json.loads(encrypt(f.read()))
 
     for obj in data:
       result.append(Transaction(obj['date'], obj['description'], obj['amount'], obj['category'], obj['tag']))
@@ -316,7 +316,6 @@ def transactions_to_json(sort_key):
   sort_transactions_list(sort_key)
   val += print_transactions_json()
   val += '\n]'
-  val = [ord(c) for c in val]
   return val
 
 #######################################
@@ -475,50 +474,3 @@ if __name__ == '__main__':
   else:
     with open('data.json', 'w') as f:
       f.write(encrypt(transactions_to_json(args.sort_key)))
-
-  # summaries = defaultdict(lambda: defaultdict(lambda: defaultdict(int)))
-
-  # for t in TRANSACTIONS:
-  #   date = t.date.strftime('%m/%d/%Y')
-  #   mm, dd, yyyy = date.split('/')
-
-  #   if t.category == 'INCOME':
-  #     summaries[yyyy][mm]['income'] += t.amount
-  #   elif t.category == 'INVESTMENTS':
-  #     summaries[yyyy][mm]['investments'] += t.amount
-  #   else:
-  #     summaries[yyyy][mm]['expenses'] += t.amount
-
-  #     if t.category == 'GIFTS':
-  #       summaries[yyyy][mm]['gifts'] += t.amount
-  #     elif t.category == 'LOANS':
-  #       summaries[yyyy][mm]['loans'] += t.amount
-  #     elif t.category == 'CHARITY':
-  #       summaries[yyyy][mm]['charity'] += t.amount
-
-  # total_savings = 0
-  # total_loans = 0
-  # total_gifts = 0
-  # total_charity = 0
-  # total_investments = 0
-
-  # for yyyy, months in sorted(summaries.items()):
-  #   for mm, data in sorted(months.items()):
-  #     data['savings'] = data['income'] + data['expenses']
-
-  #     total_savings += data['savings']
-  #     total_loans += data['loans']
-  #     total_gifts += data['gifts']
-  #     total_charity += data['charity']
-  #     total_investments += data['investments']
-
-  #     data['total_savings'] = total_savings
-  #     data['total_loans'] = total_loans
-  #     data['total_gifts'] = total_gifts
-  #     data['total_charity'] = total_charity
-  #     data['total_investments'] = total_investments
-
-  # for year, months in sorted(summaries.items()):
-  #   print(year)
-  #   for month, data in sorted(months.items()):
-  #     print(month, data)

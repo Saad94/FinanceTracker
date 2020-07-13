@@ -60,7 +60,7 @@ const calculateSummaries = () => {
   allTransactions.forEach((t) => {
     const [mm, dd, yyyy] = t.date.split('/');
 
-    if (t.category !== 'INCOME' && t.category !== 'INVESTMENTS') {
+    if (t.category !== 'INCOME' && t.category !== 'INVESTMENTS' && t.amount < 0) {
       summaries[yyyy][mm]['EXPENSES'] += t.amount;
     }
 
@@ -88,9 +88,9 @@ const calculateSummaries = () => {
   Object.keys(summaries).sort().forEach((yyyy) => {
     Object.keys(summaries[yyyy]).sort().forEach((mm) => {
       Object.keys(summaries[yyyy][mm]).sort().forEach((key) => {
-        if (key !== 'SAVINGS' && key !== 'LIFETIME_SAVINGS') {
-          summaries[yyyy][mm][key] = Math.abs(summaries[yyyy][mm][key]);
-        }
+        // if (key !== 'SAVINGS' && key !== 'LIFETIME_SAVINGS') {
+        //   summaries[yyyy][mm][key] = Math.abs(summaries[yyyy][mm][key]);
+        // }
         summaries[yyyy][mm][key] = summaries[yyyy][mm][key].toFixed(2);
       });
     });
@@ -218,7 +218,9 @@ export const trends2 = (req) => {
 
     categories.forEach((category) => {
       const amount = category in summaries[yyyyKey][mmKey] ? parseFloat(summaries[yyyyKey][mmKey][category]) : 0;
-      data[key][category] = amount;
+
+      const amountToDisplay = category === 'SAVINGS' ? amount : amount * -1;
+      data[key][category] = amountToDisplay;
     });
 
     mm -= 1;
