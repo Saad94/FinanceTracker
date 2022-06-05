@@ -60,11 +60,10 @@ ALIASES = {
   'BAILEY APARTMENTS'           : ['Rent',                            CATEGORIES['ESSENTIALS'],     ''              ],
   'City of Austin'              : ['City of Austin Utilities',        CATEGORIES['ESSENTIALS'],     ''              ],
   'Amerenil'                    : ['Ameren Illinois',                 CATEGORIES['ESSENTIALS'],     ''              ],
-  'GOOGLE'                      : ['Google Fibre',                    CATEGORIES['ESSENTIALS'],     ''              ],
   'TMOBILE'                     : ['T-Mobile',                        CATEGORIES['ESSENTIALS'],     ''              ],
   'T-MOBILE'                    : ['T-Mobile',                        CATEGORIES['ESSENTIALS'],     ''              ],
   'PRIVATEINTERNETACCESS'       : ['Private Internet Access VPN',     CATEGORIES['ESSENTIALS'],     ''              ],
-  'COINTRACKER'                 : ['CoinTracker',                     CATEGORIES['ESSENTIALS'],     'Taxes'         ],
+  'COINTRACKER'                 : ['CoinTracker',                     CATEGORIES['ESSENTIALS'],     ''              ],
   'SPRINTAX'                    : ['Sprintax',                        CATEGORIES['ESSENTIALS'],     'Taxes'         ],
   'Austin Bouldering'           : ['Austin Bouldering Project',       CATEGORIES['FITNESS'],        'Climbing'      ],
   'AUSTIN BOULDERING'           : ['Austin Bouldering Project',       CATEGORIES['FITNESS'],        'Climbing'      ],
@@ -118,6 +117,7 @@ ALIASES = {
   'ANYDAY GROCERY'              : ['Anyday Grocery',                  CATEGORIES['GROCERIES'],      ''              ],
   'THE AUSTINITE MARK'          : ['The Austinite Market',            CATEGORIES['GROCERIES'],      ''              ],
   'LAMAR PLAZA'                 : ['Lamar Plaza Drug Store',          CATEGORIES['GROCERIES'],      ''              ],
+  'SUGARBEARHAIR'               : ['Sugar Bear Hair Vitamins',        CATEGORIES['GROCERIES'],      ''              ],
   'AIRBNB'                      : ['Airbnb',                          CATEGORIES['HOTELS'],         ''              ],
   'UPS'                         : ['UPS',                             CATEGORIES['MAIL'],           ''              ],
   'USPS'                        : ['USPS',                            CATEGORIES['MAIL'],           ''              ],
@@ -182,7 +182,10 @@ ALIASES = {
   'BANGERS SAUSAGE'             : ['Banger\'s Sausage House',         CATEGORIES['RESTAURANTS'],    ''              ],
   'KERBEY LANE'                 : ['Kerbey Lane Cafe',                CATEGORIES['RESTAURANTS'],    ''              ],
   'JUICELAND'                   : ['Juiceland',                       CATEGORIES['RESTAURANTS'],    ''              ],
-  'DOMINO\'S'                   : ['Domino\'s Pizza',                 CATEGORIES['RESTAURANTS'],    ''              ]
+  'DOMINOS'                     : ['Domino\'s Pizza',                 CATEGORIES['RESTAURANTS'],    ''              ],
+  'DOMINO\'S'                   : ['Domino\'s Pizza',                 CATEGORIES['RESTAURANTS'],    ''              ],
+  'CABO BOB'                    : ['Cabo Bob\'s',                     CATEGORIES['RESTAURANTS'],    ''              ],
+  'SUMMER MOON'                 : ['Summer Moon Coffee',              CATEGORIES['RESTAURANTS'],    ''              ],
 }
 
 # Drop Labels
@@ -236,9 +239,10 @@ def to_date(string):
 
 
 def load_data_file():
-  with open ('./display/src/server/data/data.json', 'r') as f:
+  with open ('./tmp.json', 'r') as f:
     result = []
-    data = json.loads(encrypt(f.read()))
+    # data = json.loads(encrypt(f.read()))
+    data = json.loads(f.read())
 
     for obj in data:
       result.append(Transaction(obj['date'], obj['description'], obj['amount'], obj['category'], obj['tag']))
@@ -330,6 +334,7 @@ def is_useful_transaction(description):
   '''
   for label in DROPS:
     if label in description:
+      print('dropping: ', description)
       return False
 
   return True
@@ -474,4 +479,5 @@ if __name__ == '__main__':
     print(summarize_transactions(args.sort_key))
   else:
     with open('data.json', 'w') as f:
-      f.write(encrypt(transactions_to_json(args.sort_key)))
+      # f.write(encrypt(transactions_to_json(args.sort_key)))
+      f.write(transactions_to_json(args.sort_key))

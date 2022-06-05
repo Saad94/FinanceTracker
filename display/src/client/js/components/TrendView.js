@@ -37,12 +37,35 @@ export default class TrendView extends Component {
     TRANSPORTATION: '#ffc685cc',
   }
 
-  TRENDS_ORDER = ['ESSENTIALS', 'ONE_TIME_SPENDING', 'INVESTMENTS', 'LOANS', 'GROCERIES', 'TRANSPORTATION', 'RESTAURANTS', 'FITNESS', 'DANCING', 'MEDICAL', 'ENTERTAINMENT', 'SUBSCRIPTIONS', 'AIRLINES', 'AMAZON', 'APPAREL', 'GAMING', 'HAIRCUTS', 'GIFTS', 'CHARITY', 'HOTELS', 'MAIL', 'MISC'];
+  TRENDS_ORDER = [
+    'ESSENTIALS',
+    'ONE_TIME_SPENDING',
+    'INVESTMENTS',
+    'LOANS',
+    'GROCERIES',
+    'TRANSPORTATION',
+    'RESTAURANTS',
+    'FITNESS',
+    'DANCING',
+    'MEDICAL',
+    'ENTERTAINMENT',
+    'SUBSCRIPTIONS',
+    'AIRLINES',
+    'AMAZON',
+    'APPAREL',
+    'GAMING',
+    'HAIRCUTS',
+    'GIFTS',
+    'CHARITY',
+    'HOTELS',
+    'MAIL',
+    'MISC'
+  ];
 
   componentDidMount() {
     this.setState({ fetchInProgress: true });
 
-    fetch('/api/trends/20')
+    fetch('/api/trends/36')
       .then(res => res.json())
       .then((res) => {
         this.setState({
@@ -51,7 +74,7 @@ export default class TrendView extends Component {
         });
       });
 
-    fetch('/api/trends2/20')
+    fetch('/api/trends2/36')
       .then(res => res.json())
       .then((res) => {
         this.setState({

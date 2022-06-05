@@ -15,14 +15,16 @@ class DefaultDict {
 }
 
 const encrypt = (data) => {
-  const key = process.env.KEY;
-  let result = '';
+  // const key = process.env.KEY;
+  // let result = '';
 
-  for (let i = 0; i < data.length; i++) {
-    result += String.fromCharCode(key.charCodeAt([i % key.length]) ^ data.charCodeAt(i));
-  }
+  // for (let i = 0; i < data.length; i++) {
+  //   result += String.fromCharCode(key.charCodeAt([i % key.length]) ^ data.charCodeAt(i));
+  // }
 
-  return result;
+  // return result;
+
+  return data;
 };
 
 // Make a backup of the data file
