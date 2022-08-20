@@ -81,6 +81,7 @@ ALIASES = {
   'PATREON'                     : ['Patreon',                         CATEGORIES['SUBSCRIPTIONS'],  ''              ],
   'CAPITAL METRO'               : ['Capital Metro',                   CATEGORIES['TRANSPORTATION'], ''              ],
   'LYFT'                        : ['Lyft',                            CATEGORIES['TRANSPORTATION'], ''              ],
+  'UBER EATS'                   : ['Uber Eats',                       CATEGORIES['RESTAURANTS'],    ''              ],
   'UBER'                        : ['Uber',                            CATEGORIES['TRANSPORTATION'], ''              ],
   'GROUNDSHUTTLE.COM'           : ['Groundshuttle',                   CATEGORIES['TRANSPORTATION'], ''              ],
   'MYTAXI.PH'                   : ['Mytaxi.ph',                       CATEGORIES['TRANSPORTATION'], ''              ],
