@@ -194,6 +194,7 @@ DROPS = [
   'INTERNET PAYMENT - THANK YOU', 
   'ONLINE PAYMENT - THANK YOU', 
   'PAYMENT RECEIVED - THANK YOU', 
+  'MOBILE PAYMENT - THANK YOU',
   'Discover E-Payment', 
   'American Express ACH Pmt',
   'Online Transfer To Sav',
@@ -239,7 +240,7 @@ def to_date(string):
 
 
 def load_data_file():
-  with open ('./tmp.json', 'r') as f:
+  with open ('./display/src/server/data/data.json', 'r') as f:
     result = []
     # data = json.loads(encrypt(f.read()))
     data = json.loads(f.read())
@@ -368,7 +369,7 @@ def process_transaction(transaction):
 
 def process_amex(row):
   if is_useful_transaction(row[3]):
-    date, description, amount = row[0], row[3], float(row[2].replace(',', ''))
+    date, description, amount = row[0], row[3], float(row[2].replace(',', '')) * -1.0
     description, category, tag = extract_desc_and_category_and_tag(description, amount)
     return Transaction(date, description, amount, category, tag)
 
